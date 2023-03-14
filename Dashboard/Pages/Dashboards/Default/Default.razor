@@ -1,0 +1,38 @@
+﻿@page "/"
+@page "/default"
+@using Dashboard.Examples.Shared
+@using Dashboard.Pages.Dashboards.Default.Items
+
+<StatusCard />
+<div class="row">
+	<SalesOverviewChart />
+	<Carousel />
+</div>
+<div class="row mt-4">
+	<TeamMembers />
+	<ToDoList />
+	<ProgressTrack />
+</div>
+<div class="row mt-4">
+	<SocialMedia />
+	<div class="col-12 col-lg-7">
+		<ProjectTable />
+		<div class="row mt-4">
+			<div class="col-12 col-md-6 mb-4 mb-md-0">
+				<BalanceCard />
+			</div>
+			<div class="col-12 col-md-6">
+				<BitcoinCard />
+			</div>
+		</div>
+		<SalesByCountry />
+	</div>
+</div>
+<div class="row mt-4">
+	<EmployeeTable />
+	<Categories />
+</div>
+
+@code {
+
+}
