@@ -1,20 +1,37 @@
 ﻿@page "/"
 @page "/default"
-@using Dashboard.Examples.Shared
 @using Dashboard.Pages.Dashboards.Default.Items
 
-<StatusCard />
 <div class="row">
-	<SalesOverviewChart />
-	<Carousel />
+	<div class="col-lg-12">
+		<div class="row">
+			<StatusCard />
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-lg-7 mb-4 mb-lg-0">
+		<SalesOverviewChart />
+	</div>
+	<div class="col-lg-5">
+		<Carousel />
+	</div>
 </div>
 <div class="row mt-4">
-	<TeamMembers />
-	<ToDoList />
-	<ProgressTrack />
+	<div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+		<TeamMembers />
+	</div>
+	<div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+		<ToDoList />
+	</div>
+	<div class="col-lg-4">
+		<ProgressTrack />
+	</div>
 </div>
 <div class="row mt-4">
-	<SocialMedia />
+	<div class="col-12 col-lg-5">
+		<SocialMedia />
+	</div>
 	<div class="col-12 col-lg-7">
 		<ProjectTable />
 		<div class="row mt-4">
@@ -25,12 +42,18 @@
 				<BitcoinCard />
 			</div>
 		</div>
-		<SalesByCountry />
+		<div class="mt-4">
+			<SalesByCountry />
+		</div>
 	</div>
 </div>
 <div class="row mt-4">
-	<EmployeeTable />
-	<Categories />
+	<div class="col-12 col-md-8 mb-4 mb-md-0">
+		<EmployeeTable />
+	</div>
+	<div class="col-md-4">
+		<Categories />
+	</div>
 </div>
 
 @code {

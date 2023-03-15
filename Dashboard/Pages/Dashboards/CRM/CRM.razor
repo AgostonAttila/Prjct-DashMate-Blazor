@@ -1,0 +1,40 @@
+﻿@page "/crm";
+@using Dashboard.Pages.Dashboards.CRM.Items
+
+<div class="row  mt-n2">
+	<div class="col-xl-8 col-lg-7">
+		<div class="row">
+			<ChartCRM />
+		</div>
+		<div class="row mt-4">
+			<div class="col-12">
+				<Calendar />
+			</div>
+		</div>
+	</div>
+	<div class="col-xl-4 col-lg-5 mt-lg-0 mt-4">
+		<div class="row">
+			<div class="col-lg-12">
+				<CardCRM />
+			</div>
+			<div class="col-lg-12 col-sm-6">
+				<CategoriesTable />
+			</div>
+			<div class="col-lg-12 col-sm-6">
+				<SendMessageCard />
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row mt-4">
+	<div class="col-sm-6">
+		<Transactions />
+	</div>
+	<div class="col-sm-6 mt-sm-0 mt-4">
+		<Revenue />
+	</div>
+</div>
+
+@code {
+
+}
