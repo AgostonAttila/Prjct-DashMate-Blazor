@@ -28,58 +28,6 @@
 								</a>
 							</li>
 						}
-						@*<li class="nav-item ">
-							<a class="nav-link " href="../../pages/dashboards/landing.html">
-								<span class="sidenav-mini-icon"> L </span>
-								<span class="sidenav-normal"> Landing </span>
-							</a>
-							</li>
-						<li class="nav-item active">
-							<a class="nav-link active" href="../../pages/dashboards/default.html">
-								<span class="sidenav-mini-icon"> D </span>
-								<span class="sidenav-normal"> Default </span>
-							</a>
-						</li>
-						<li class="nav-item ">
-							<a class="nav-link " href="../../pages/dashboards/automotive.html">
-								<span class="sidenav-mini-icon"> A </span>
-								<span class="sidenav-normal"> Automotive </span>
-							</a>
-						</li>
-						<li class="nav-item ">
-							<a class="nav-link " href="../../pages/dashboards/smart-home.html">
-								<span class="sidenav-mini-icon"> S </span>
-								<span class="sidenav-normal"> Smart Home </span>
-							</a>
-						</li>
-						<li class="nav-item ">
-							<a class="nav-link " data-bs-toggle="collapse" aria-expanded="false" href="#vrExamples">
-								<span class="sidenav-mini-icon"> V </span>
-								<span class="sidenav-normal"> Virtual Reality <b class="caret"></b></span>
-							</a>
-							<div class="collapse " id="vrExamples">
-								<ul class="nav nav-sm flex-column">
-									<li class="nav-item">
-										<a class="nav-link " href="../../pages/dashboards/vr/vr-default.html">
-											<span class="sidenav-mini-icon text-xs"> V </span>
-											<span class="sidenav-normal"> VR Default </span>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link " href="../../pages/dashboards/vr/vr-info.html">
-											<span class="sidenav-mini-icon text-xs"> V </span>
-											<span class="sidenav-normal"> VR Info </span>
-										</a>
-									</li>
-								</ul>
-							</div>
-						</li>
-						<li class="nav-item ">
-							<a class="nav-link " href="../../pages/dashboards/crm.html">
-								<span class="sidenav-mini-icon"> C </span>
-								<span class="sidenav-normal"> CRM </span>
-							</a>
-						</li>*@
 					</ul>
 				</div>
 			</li>
@@ -102,24 +50,15 @@
 							</a>
 							<div class="collapse " id="profileExample">
 								<ul class="nav nav-sm flex-column">
-									<li class="nav-item">
-										<a class="nav-link " href="../../pages/pages/profile/overview.html">
-											<span class="sidenav-mini-icon text-xs"> P </span>
-											<span class="sidenav-normal"> Profile Overview </span>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link " href="../../pages/pages/profile/teams.html">
-											<span class="sidenav-mini-icon text-xs"> T </span>
-											<span class="sidenav-normal"> Teams </span>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link " href="../../pages/pages/profile/projects.html">
-											<span class="sidenav-mini-icon text-xs"> A </span>
-											<span class="sidenav-normal"> All Projects </span>
-										</a>
-									</li>
+									@foreach (MenuItem menuItem in profileMenuItems)
+									{
+										<li class="nav-item">
+											<a class="nav-link " href="@menuItem.Link">
+												<span class="sidenav-mini-icon text-xs"> @menuItem.MiniTitle </span>
+												<span class="sidenav-normal"> @menuItem.NormalTitle </span>
+											</a>
+										</li>
+									}
 								</ul>
 							</div>
 						</li>
@@ -130,18 +69,15 @@
 							</a>
 							<div class="collapse " id="usersExample">
 								<ul class="nav nav-sm flex-column">
-									<li class="nav-item">
-										<a class="nav-link " href="../../pages/pages/users/reports.html">
-											<span class="sidenav-mini-icon text-xs"> R </span>
-											<span class="sidenav-normal"> Reports </span>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link " href="../../pages/pages/users/new-user.html">
-											<span class="sidenav-mini-icon text-xs"> N </span>
-											<span class="sidenav-normal"> New User </span>
-										</a>
-									</li>
+									@foreach (MenuItem menuItem in usersMenuItems)
+									{
+										<li class="nav-item">
+											<a class="nav-link " href="@menuItem.Link">
+												<span class="sidenav-mini-icon text-xs"> @menuItem.MiniTitle </span>
+												<span class="sidenav-normal"> @menuItem.NormalTitle </span>
+											</a>
+										</li>
+									}
 								</ul>
 							</div>
 						</li>
@@ -152,30 +88,15 @@
 							</a>
 							<div class="collapse " id="accountExample">
 								<ul class="nav nav-sm flex-column">
-									<li class="nav-item">
-										<a class="nav-link " href="../../pages/pages/account/settings.html">
-											<span class="sidenav-mini-icon text-xs"> S </span>
-											<span class="sidenav-normal"> Settings </span>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link " href="../../pages/pages/account/billing.html">
-											<span class="sidenav-mini-icon text-xs"> B </span>
-											<span class="sidenav-normal"> Billing </span>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link " href="../../pages/pages/account/invoice.html">
-											<span class="sidenav-mini-icon text-xs"> I </span>
-											<span class="sidenav-normal"> Invoice </span>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link " href="../../pages/pages/account/security.html">
-											<span class="sidenav-mini-icon text-xs"> S </span>
-											<span class="sidenav-normal"> Security </span>
-										</a>
-									</li>
+									@foreach (MenuItem menuItem in accountMenuItems)
+									{
+										<li class="nav-item">
+											<a class="nav-link " href="@menuItem.Link">
+												<span class="sidenav-mini-icon text-xs"> @menuItem.MiniTitle </span>
+												<span class="sidenav-normal"> @menuItem.NormalTitle </span>
+											</a>
+										</li>
+									}
 								</ul>
 							</div>
 						</li>
@@ -186,69 +107,27 @@
 							</a>
 							<div class="collapse " id="projectsExample">
 								<ul class="nav nav-sm flex-column">
-									<li class="nav-item">
-										<a class="nav-link " href="../../pages/pages/projects/general.html">
-											<span class="sidenav-mini-icon text-xs"> G </span>
-											<span class="sidenav-normal"> General </span>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link " href="../../pages/pages/projects/timeline.html">
-											<span class="sidenav-mini-icon text-xs"> T </span>
-											<span class="sidenav-normal"> Timeline </span>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link " href="../../pages/pages/projects/new-project.html">
-											<span class="sidenav-mini-icon text-xs"> N </span>
-											<span class="sidenav-normal"> New Project </span>
-										</a>
-									</li>
+									@foreach (MenuItem menuItem in projectMenuItems)
+									{
+										<li class="nav-item">
+											<a class="nav-link " href="@menuItem.Link">
+												<span class="sidenav-mini-icon text-xs"> @menuItem.MiniTitle </span>
+												<span class="sidenav-normal"> @menuItem.NormalTitle </span>
+											</a>
+										</li>
+									}
 								</ul>
 							</div>
 						</li>
-						<li class="nav-item ">
-							<a class="nav-link " href="../../pages/pages/pricing-page.html">
-								<span class="sidenav-mini-icon"> P </span>
-								<span class="sidenav-normal"> Pricing Page </span>
-							</a>
-						</li>
-						<li class="nav-item ">
-							<a class="nav-link " href="../../pages/pages/rtl-page.html">
-								<span class="sidenav-mini-icon"> R </span>
-								<span class="sidenav-normal"> RTL </span>
-							</a>
-						</li>
-						<li class="nav-item ">
-							<a class="nav-link " href="../../pages/pages/widgets.html">
-								<span class="sidenav-mini-icon"> W </span>
-								<span class="sidenav-normal"> Widgets </span>
-							</a>
-						</li>
-						<li class="nav-item ">
-							<a class="nav-link " href="../../pages/pages/charts.html">
-								<span class="sidenav-mini-icon"> C </span>
-								<span class="sidenav-normal"> Charts </span>
-							</a>
-						</li>
-						<li class="nav-item ">
-							<a class="nav-link " href="../../pages/pages/sweet-alerts.html">
-								<span class="sidenav-mini-icon"> S </span>
-								<span class="sidenav-normal"> Sweet Alerts </span>
-							</a>
-						</li>
-						<li class="nav-item ">
-							<a class="nav-link " href="../../pages/pages/notifications.html">
-								<span class="sidenav-mini-icon"> N </span>
-								<span class="sidenav-normal"> Notifications </span>
-							</a>
-						</li>
-						<li class="nav-item ">
-							<a class="nav-link " href="../../pages/pages/chat.html">
-								<span class="sidenav-mini-icon"> C </span>
-								<span class="sidenav-normal"> Chat </span>
-							</a>
-						</li>
+						@foreach (MenuItem menuItem in pagesMenuItems)
+						{
+							<li class="nav-item">
+								<a class="nav-link " href="@menuItem.Link">
+									<span class="sidenav-mini-icon text-xs"> @menuItem.MiniTitle </span>
+									<span class="sidenav-normal"> @menuItem.NormalTitle </span>
+								</a>
+							</li>
+						}
 					</ul>
 				</div>
 			</li>
@@ -269,7 +148,7 @@
 									<span class="sidenav-normal"> @menuItem.NormalTitle </span>
 								</a>
 							</li>
-						}					
+						}
 					</ul>
 				</div>
 			</li>
@@ -283,7 +162,7 @@
 				<div class="collapse " id="ecommerceExamples">
 					<ul class="nav ms-4">
 						<li class="nav-item ">
-							<a class="nav-link " href="../../pages/ecommerce/overview.html">
+							<a class="nav-link " href="/overview">
 								<span class="sidenav-mini-icon"> O </span>
 								<span class="sidenav-normal"> Overview </span>
 							</a>
@@ -295,30 +174,15 @@
 							</a>
 							<div class="collapse " id="productsExample">
 								<ul class="nav nav-sm flex-column">
-									<li class="nav-item">
-										<a class="nav-link " href="../../pages/ecommerce/products/new-product.html">
-											<span class="sidenav-mini-icon text-xs"> N </span>
-											<span class="sidenav-normal"> New Product </span>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link " href="../../pages/ecommerce/products/edit-product.html">
-											<span class="sidenav-mini-icon text-xs"> E </span>
-											<span class="sidenav-normal"> Edit Product </span>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link " href="../../pages/ecommerce/products/product-page.html">
-											<span class="sidenav-mini-icon text-xs"> P </span>
-											<span class="sidenav-normal"> Product Page </span>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link " href="../../pages/ecommerce/products/products-list.html">
-											<span class="sidenav-mini-icon text-xs"> P </span>
-											<span class="sidenav-normal"> Products List </span>
-										</a>
-									</li>
+									@foreach (MenuItem menuItem in productsMenuItems)
+									{
+										<li class="nav-item ">
+											<a class="nav-link " href="@menuItem.Link">
+												<span class="sidenav-mini-icon text-xs"> @menuItem.MiniTitle </span>
+												<span class="sidenav-normal"> @menuItem.NormalTitle </span>
+											</a>
+										</li>
+									}
 								</ul>
 							</div>
 						</li>
@@ -329,23 +193,20 @@
 							</a>
 							<div class="collapse " id="ordersExample">
 								<ul class="nav nav-sm flex-column">
-									<li class="nav-item">
-										<a class="nav-link " href="../../pages/ecommerce/orders/list.html">
-											<span class="sidenav-mini-icon text-xs"> O </span>
-											<span class="sidenav-normal"> Order List </span>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link " href="../../pages/ecommerce/orders/details.html">
-											<span class="sidenav-mini-icon text-xs"> O </span>
-											<span class="sidenav-normal"> Order Details </span>
-										</a>
-									</li>
+									@foreach (MenuItem menuItem in ordersMenuItems)
+									{
+										<li class="nav-item ">
+											<a class="nav-link " href="@menuItem.Link">
+												<span class="sidenav-mini-icon text-xs"> @menuItem.MiniTitle </span>
+												<span class="sidenav-normal"> @menuItem.NormalTitle </span>
+											</a>
+										</li>
+									}
 								</ul>
 							</div>
 						</li>
 						<li class="nav-item ">
-							<a class="nav-link " href="../../pages/ecommerce/referral.html">
+							<a class="nav-link " href="/referral">
 								<span class="sidenav-mini-icon"> R </span>
 								<span class="sidenav-normal"> Referral </span>
 							</a>
@@ -369,24 +230,15 @@
 							</a>
 							<div class="collapse " id="signinExample">
 								<ul class="nav nav-sm flex-column">
-									<li class="nav-item">
-										<a class="nav-link " href="../../pages/authentication/signin/basic.html">
-											<span class="sidenav-mini-icon text-xs"> B </span>
-											<span class="sidenav-normal"> Basic </span>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link " href="../../pages/authentication/signin/cover.html">
-											<span class="sidenav-mini-icon text-xs"> C </span>
-											<span class="sidenav-normal"> Cover </span>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link " href="../../pages/authentication/signin/illustration.html">
-											<span class="sidenav-mini-icon text-xs"> I </span>
-											<span class="sidenav-normal"> Illustration </span>
-										</a>
-									</li>
+									@foreach (MenuItem menuItem in singinMenuItems)
+									{
+										<li class="nav-item ">
+											<a class="nav-link " href="@menuItem.Link">
+												<span class="sidenav-mini-icon text-xs"> @menuItem.MiniTitle </span>
+												<span class="sidenav-normal"> @menuItem.NormalTitle </span>
+											</a>
+										</li>
+									}
 								</ul>
 							</div>
 						</li>
@@ -397,24 +249,15 @@
 							</a>
 							<div class="collapse " id="signupExample">
 								<ul class="nav nav-sm flex-column">
-									<li class="nav-item">
-										<a class="nav-link " href="../../pages/authentication/signup/basic.html">
-											<span class="sidenav-mini-icon text-xs"> B </span>
-											<span class="sidenav-normal"> Basic </span>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link " href="../../pages/authentication/signup/cover.html">
-											<span class="sidenav-mini-icon text-xs"> C </span>
-											<span class="sidenav-normal"> Cover </span>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link " href="../../pages/authentication/signup/illustration.html">
-											<span class="sidenav-mini-icon text-xs"> I </span>
-											<span class="sidenav-normal"> Illustration </span>
-										</a>
-									</li>
+									@foreach (MenuItem menuItem in singupMenuItems)
+									{
+										<li class="nav-item ">
+											<a class="nav-link " href="@menuItem.Link">
+												<span class="sidenav-mini-icon text-xs"> @menuItem.MiniTitle </span>
+												<span class="sidenav-normal"> @menuItem.NormalTitle </span>
+											</a>
+										</li>
+									}
 								</ul>
 							</div>
 						</li>
@@ -425,24 +268,15 @@
 							</a>
 							<div class="collapse " id="resetExample">
 								<ul class="nav nav-sm flex-column">
-									<li class="nav-item">
-										<a class="nav-link " href="../../pages/authentication/reset/basic.html">
-											<span class="sidenav-mini-icon text-xs"> B </span>
-											<span class="sidenav-normal"> Basic </span>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link " href="../../pages/authentication/reset/cover.html">
-											<span class="sidenav-mini-icon text-xs"> C </span>
-											<span class="sidenav-normal"> Cover </span>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link " href="../../pages/authentication/reset/illustration.html">
-											<span class="sidenav-mini-icon text-xs"> I </span>
-											<span class="sidenav-normal"> Illustration </span>
-										</a>
-									</li>
+									@foreach (MenuItem menuItem in resetMenuItems)
+									{
+										<li class="nav-item ">
+											<a class="nav-link " href="@menuItem.Link">
+												<span class="sidenav-mini-icon text-xs"> @menuItem.MiniTitle </span>
+												<span class="sidenav-normal"> @menuItem.NormalTitle </span>
+											</a>
+										</li>
+									}
 								</ul>
 							</div>
 						</li>
@@ -453,24 +287,15 @@
 							</a>
 							<div class="collapse " id="lockExample">
 								<ul class="nav nav-sm flex-column">
-									<li class="nav-item">
-										<a class="nav-link " href="../../pages/authentication/lock/basic.html">
-											<span class="sidenav-mini-icon text-xs"> B </span>
-											<span class="sidenav-normal"> Basic </span>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link " href="../../pages/authentication/lock/cover.html">
-											<span class="sidenav-mini-icon text-xs"> C </span>
-											<span class="sidenav-normal"> Cover </span>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link " href="../../pages/authentication/lock/illustration.html">
-											<span class="sidenav-mini-icon text-xs"> I </span>
-											<span class="sidenav-normal"> Illustration </span>
-										</a>
-									</li>
+									@foreach (MenuItem menuItem in lockMenuItems)
+									{
+										<li class="nav-item ">
+											<a class="nav-link " href="@menuItem.Link">
+												<span class="sidenav-mini-icon text-xs"> @menuItem.MiniTitle </span>
+												<span class="sidenav-normal"> @menuItem.NormalTitle </span>
+											</a>
+										</li>
+									}
 								</ul>
 							</div>
 						</li>
@@ -481,24 +306,15 @@
 							</a>
 							<div class="collapse " id="StepExample">
 								<ul class="nav nav-sm flex-column">
-									<li class="nav-item">
-										<a class="nav-link " href="../../pages/authentication/verification/basic.html">
-											<span class="sidenav-mini-icon text-xs"> B </span>
-											<span class="sidenav-normal"> Basic </span>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link " href="../../pages/authentication/verification/cover.html">
-											<span class="sidenav-mini-icon text-xs"> C </span>
-											<span class="sidenav-normal"> Cover </span>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link " href="../../pages/authentication/verification/illustration.html">
-											<span class="sidenav-mini-icon text-xs"> I </span>
-											<span class="sidenav-normal"> Illustration </span>
-										</a>
-									</li>
+									@foreach (MenuItem menuItem in verificationMenuItems)
+									{
+										<li class="nav-item ">
+											<a class="nav-link " href="@menuItem.Link">
+												<span class="sidenav-mini-icon text-xs"> @menuItem.MiniTitle </span>
+												<span class="sidenav-normal"> @menuItem.NormalTitle </span>
+											</a>
+										</li>
+									}
 								</ul>
 							</div>
 						</li>
@@ -509,25 +325,23 @@
 							</a>
 							<div class="collapse " id="errorExample">
 								<ul class="nav nav-sm flex-column">
-									<li class="nav-item">
-										<a class="nav-link " href="../../pages/authentication/error/404.html">
-											<span class="sidenav-mini-icon text-xs"> E </span>
-											<span class="sidenav-normal"> Error 404 </span>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link " href="../../pages/authentication/error/500.html">
-											<span class="sidenav-mini-icon text-xs"> E </span>
-											<span class="sidenav-normal"> Error 500 </span>
-										</a>
-									</li>
+									@foreach (MenuItem menuItem in errorMenuItems)
+									{
+										<li class="nav-item ">
+											<a class="nav-link " href="@menuItem.Link">
+												<span class="sidenav-mini-icon text-xs"> @menuItem.MiniTitle </span>
+												<span class="sidenav-normal"> @menuItem.NormalTitle </span>
+											</a>
+										</li>
+									}
+
 								</ul>
 							</div>
 						</li>
 					</ul>
 				</div>
 			</li>
-			
+
 		</ul>
 	</div>
 	<div class="sidenav-footer mx-3 my-3">
@@ -568,6 +382,108 @@
 		new MenuItem{ Link = "/calendar",  MiniTitle = "C" , NormalTitle =  "Calendar"  },
 		new MenuItem{ Link = "/analytics",  MiniTitle = "A" , NormalTitle =  "Analytics"  }
 	};
+
+	List<MenuItem> profileMenuItems = new List<MenuItem>
+	{
+		new MenuItem{ Link = "/profileoverview",  MiniTitle = "P" , NormalTitle =  "Profile Overview"  },
+		new MenuItem{ Link = "/teams",  MiniTitle = "T" , NormalTitle =  "Teams"  },
+		new MenuItem{ Link = "/allproject",  MiniTitle = "A" , NormalTitle =  "All Projects"  }
+	};
+
+	List<MenuItem> usersMenuItems = new List<MenuItem>
+	{
+		new MenuItem{ Link = "/reports",  MiniTitle = "R" , NormalTitle =  "Reports"  },
+		new MenuItem{ Link = "/newuser",  MiniTitle = "N" , NormalTitle =  "New User"  },
+	};
+
+
+	List<MenuItem> accountMenuItems = new List<MenuItem>
+	{
+		new MenuItem{ Link = "/settings",  MiniTitle = "S" , NormalTitle =  "Settings"  },
+		new MenuItem{ Link = "/billing",  MiniTitle = "B" , NormalTitle =  "Billing"  },
+		new MenuItem{ Link = "/invoice",  MiniTitle = "I" , NormalTitle =  "Invoice"  },
+		new MenuItem{ Link = "/security",  MiniTitle = "S" , NormalTitle =  "Security"  },
+	};
+
+	List<MenuItem> projectMenuItems = new List<MenuItem>
+	{
+		new MenuItem{ Link = "/general",  MiniTitle = "G" , NormalTitle =  "General"  },
+		new MenuItem{ Link = "/timeline",  MiniTitle = "T" , NormalTitle =  "Timeline"  },
+		new MenuItem{ Link = "/newproject",  MiniTitle = "N" , NormalTitle =  "New Project"  },
+
+	};
+
+	List<MenuItem> pagesMenuItems = new List<MenuItem>
+	{
+		new MenuItem{ Link = "/pricingpage",  MiniTitle = "L" , NormalTitle =  "Pricing Page"  },
+		new MenuItem{ Link = "/rtl",  MiniTitle = "R" , NormalTitle =  "RTL"  },
+		new MenuItem{ Link = "/widgets",  MiniTitle = "W" , NormalTitle =  "Widgets"  },
+		new MenuItem{ Link = "/charts",  MiniTitle = "C" , NormalTitle =  "Charts"  },
+		new MenuItem{ Link = "/sweetalerts",  MiniTitle = "S" , NormalTitle =  "Sweet Alerts"  },
+		new MenuItem{ Link = "/notifications",  MiniTitle = "N" , NormalTitle =  "Notifications"  },
+		new MenuItem{ Link = "/chat",  MiniTitle = "C" , NormalTitle =  "Chat"  },
+		new MenuItem{ Link = "/syncfusion",  MiniTitle = "S" , NormalTitle =  "Syncfusion"  }
+	};
+
+	List<MenuItem> productsMenuItems = new List<MenuItem>
+	{
+		new MenuItem{ Link = "/newproduct",  MiniTitle = "N" , NormalTitle =  "New Product"  },
+		new MenuItem{ Link = "/editproduct",  MiniTitle = "E" , NormalTitle =  "Edit Product"  },
+		new MenuItem{ Link = "/productpage",  MiniTitle = "P" , NormalTitle =  "Product Page"  },
+		new MenuItem{ Link = "/productlist",  MiniTitle = "P" , NormalTitle =  "Products List"  },
+	};
+
+	List<MenuItem> ordersMenuItems = new List<MenuItem>
+	{
+		new MenuItem{ Link = "/orderlist",  MiniTitle = "o" , NormalTitle =  "Order List"  },
+		new MenuItem{ Link = "/orderdetail",  MiniTitle = "o" , NormalTitle =  "Order Details"  }
+	};
+
+	List<MenuItem> singinMenuItems = new List<MenuItem>
+	{
+		new MenuItem{ Link = "/singinbasic",  MiniTitle = "B" , NormalTitle =  "Basic"  },
+		new MenuItem{ Link = "/singincover",  MiniTitle = "C" , NormalTitle =  "Cover"  },
+		new MenuItem{ Link = "/singinillustration",  MiniTitle = "I" , NormalTitle =  "Illustration"  },
+	};
+
+	List<MenuItem> singupMenuItems = new List<MenuItem>
+	{
+		new MenuItem{ Link = "/singupbasic",  MiniTitle = "B" , NormalTitle =  "Basic"  },
+		new MenuItem{ Link = "/singupcover",  MiniTitle = "C" , NormalTitle =  "Cover"  },
+		new MenuItem{ Link = "/singupillustration",  MiniTitle = "I" , NormalTitle =  "Illustration"  },
+	};
+
+	List<MenuItem> resetMenuItems = new List<MenuItem>
+	{
+		new MenuItem{ Link = "/resetbasic",  MiniTitle = "B" , NormalTitle =  "Basic"  },
+		new MenuItem{ Link = "/resetcover",  MiniTitle = "C" , NormalTitle =  "Cover"  },
+		new MenuItem{ Link = "/resetillustration",  MiniTitle = "I" , NormalTitle =  "Illustration"  },
+	};
+
+	List<MenuItem> lockMenuItems = new List<MenuItem>
+	{
+		new MenuItem{ Link = "/lockbasic",  MiniTitle = "B" , NormalTitle =  "Basic"  },
+		new MenuItem{ Link = "/lockcover",  MiniTitle = "C" , NormalTitle =  "Cover"  },
+		new MenuItem{ Link = "/lockillustration",  MiniTitle = "I" , NormalTitle =  "Illustration"  },
+	};
+
+	List<MenuItem> verificationMenuItems = new List<MenuItem>
+	{
+		new MenuItem{ Link = "/verificationbasic",  MiniTitle = "B" , NormalTitle =  "Basic"  },
+		new MenuItem{ Link = "/verificationcover",  MiniTitle = "C" , NormalTitle =  "Cover"  },
+		new MenuItem{ Link = "/verificationillustration",  MiniTitle = "I" , NormalTitle =  "Illustration"  },
+	};
+
+	List<MenuItem> errorMenuItems = new List<MenuItem>
+	{
+		new MenuItem{ Link = "/404",  MiniTitle = "B" , NormalTitle =  "Error 404"  },
+		new MenuItem{ Link = "/500",  MiniTitle = "C" , NormalTitle =  "Error 500"  }
+};
+
+
+
+
+
 
 
 }
