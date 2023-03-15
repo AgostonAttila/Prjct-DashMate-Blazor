@@ -261,36 +261,15 @@
 				</a>
 				<div class="collapse " id="applicationsExamples">
 					<ul class="nav ms-4">
-						<li class="nav-item ">
-							<a class="nav-link " href="../../pages/applications/kanban.html">
-								<span class="sidenav-mini-icon"> K </span>
-								<span class="sidenav-normal"> Kanban </span>
-							</a>
-						</li>
-						<li class="nav-item ">
-							<a class="nav-link " href="../../pages/applications/wizard.html">
-								<span class="sidenav-mini-icon"> W </span>
-								<span class="sidenav-normal"> Wizard </span>
-							</a>
-						</li>
-						<li class="nav-item ">
-							<a class="nav-link " href="../../pages/applications/datatables.html">
-								<span class="sidenav-mini-icon"> D </span>
-								<span class="sidenav-normal"> DataTables </span>
-							</a>
-						</li>
-						<li class="nav-item ">
-							<a class="nav-link " href="../../pages/applications/calendar.html">
-								<span class="sidenav-mini-icon"> C </span>
-								<span class="sidenav-normal"> Calendar </span>
-							</a>
-						</li>
-						<li class="nav-item ">
-							<a class="nav-link " href="../../pages/applications/analytics.html">
-								<span class="sidenav-mini-icon"> A </span>
-								<span class="sidenav-normal"> Analytics </span>
-							</a>
-						</li>
+						@foreach (MenuItem menuItem in applicationsMenuItems)
+						{
+							<li class="nav-item ">
+								<a class="nav-link " href="@menuItem.Link">
+									<span class="sidenav-mini-icon"> @menuItem.MiniTitle </span>
+									<span class="sidenav-normal"> @menuItem.NormalTitle </span>
+								</a>
+							</li>
+						}					
 					</ul>
 				</div>
 			</li>
@@ -547,7 +526,8 @@
 						</li>
 					</ul>
 				</div>
-			</li>			
+			</li>
+			
 		</ul>
 	</div>
 	<div class="sidenav-footer mx-3 my-3">
@@ -572,12 +552,21 @@
 
 	List<MenuItem> dashboardMenuItems = new List<MenuItem>
 	{
-		new MenuItem{ Link = "/landing",  MiniTitle = "L" , NormalTitle =  "Landing"  },
+		//new MenuItem{ Link = "/landing",  MiniTitle = "L" , NormalTitle =  "Landing"  },
 		new MenuItem{ Link = "/default",  MiniTitle = "D" , NormalTitle =  "Default"  },
 		new MenuItem{ Link = "/automotive",  MiniTitle = "A" , NormalTitle =  "Automotive"  },
 		new MenuItem{ Link = "/smarthome",  MiniTitle = "S" , NormalTitle =  "Smart Home"  },
-		new MenuItem{ Link = "/virtualreality",  MiniTitle = "V" , NormalTitle =  "Smart Home"  },
-		new MenuItem{ Link = "/landing",  MiniTitle = "C" , NormalTitle =  "CRM"  }
+		new MenuItem{ Link = "/virtualreality",  MiniTitle = "V" , NormalTitle =  "Virtual Reality"  },
+		new MenuItem{ Link = "/crm",  MiniTitle = "C" , NormalTitle =  "CRM"  }
+	};
+
+	List<MenuItem> applicationsMenuItems = new List<MenuItem>
+	{
+		new MenuItem{ Link = "/kanban",  MiniTitle = "L" , NormalTitle =  "Kanban"  },
+		new MenuItem{ Link = "/wizard",  MiniTitle = "W" , NormalTitle =  "Wizard"  },
+		new MenuItem{ Link = "/datatables",  MiniTitle = "D" , NormalTitle =  "DataTables"  },
+		new MenuItem{ Link = "/calendar",  MiniTitle = "C" , NormalTitle =  "Calendar"  },
+		new MenuItem{ Link = "/analytics",  MiniTitle = "A" , NormalTitle =  "Analytics"  }
 	};
 
 
