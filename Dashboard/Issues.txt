@@ -13,3 +13,8 @@ PricingPage
 
 
 notifications újratölt
+editproduct el van csúszva
+profile mind3 rossz
+new users footer
+sweetalerts
+chat
