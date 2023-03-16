@@ -1,52 +1,54 @@
 ﻿@page "/smarthome";
 @using Dashboard.Pages.Dashboards.SmartHome.Components
 
-<div class="row">
-	<div class="col-xl-7">
-		<Cameras />
-	</div>
-	<div class="col-xl-5 ms-auto mt-xl-0 mt-4">
-		<div class="row">
-			<div class="col-12">
-				<WeatherTodayCard />
-			</div>
+<div class="container-fluid py-4">
+	<div class="row">
+		<div class="col-xl-7">
+			<Cameras />
 		</div>
-		<div class="row mt-4">
-			<div class="col-md-6">
-				<TemperatureCard />
+		<div class="col-xl-5 ms-auto mt-xl-0 mt-4">
+			<div class="row">
+				<div class="col-12">
+					<WeatherTodayCard />
+				</div>
 			</div>
-			<div class="col-md-6 mt-md-0 mt-4">
-				<HumidityCard />
+			<div class="row mt-4">
+				<div class="col-md-6">
+					<TemperatureCard />
+				</div>
+				<div class="col-md-6 mt-md-0 mt-4">
+					<HumidityCard />
+				</div>
 			</div>
-		</div>
-		<div class="row mt-4">
-			<div class="col-md-6">
-				<WaterConsuptionCard />
-			</div>
-			<div class="col-md-6 mt-md-0 mt-4">
-				<InternetCard />
-			</div>
-		</div>
-	</div>
-</div>
-<div class="row mt-4">
-	<div class="col-lg-6 ms-auto">
-		<ConsuptionByRoom />
-	</div>
-	<div class="col-lg-6 mt-lg-0 mt-4">
-		<div class="row">
-			<div class="col-sm-6">
-				<ConsumptionPerDay />
-			</div>
-			<div class="col-sm-6 mt-sm-0 mt-4">
-				<DeviceLimit />
+			<div class="row mt-4">
+				<div class="col-md-6">
+					<WaterConsuptionCard />
+				</div>
+				<div class="col-md-6 mt-md-0 mt-4">
+					<InternetCard />
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
-<hr class="horizontal dark my-5">
-<div class="row">
-	<DeviceCards />
+	<div class="row mt-4">
+		<div class="col-lg-6 ms-auto">
+			<ConsuptionByRoom />
+		</div>
+		<div class="col-lg-6 mt-lg-0 mt-4">
+			<div class="row">
+				<div class="col-sm-6">
+					<ConsumptionPerDay />
+				</div>
+				<div class="col-sm-6 mt-sm-0 mt-4">
+					<DeviceLimit />
+				</div>
+			</div>
+		</div>
+	</div>
+	<hr class="horizontal dark my-5">
+	<div class="row">
+		<DeviceCards />
+	</div>
 </div>
 
 @code {
