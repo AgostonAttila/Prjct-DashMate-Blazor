@@ -18,7 +18,7 @@
 			<h6 class="font-weight-bolder mb-0 text-white">Default</h6>
 		</nav>
 		<div class="sidenav-toggler sidenav-toggler-inner d-xl-block d-none ">
-			<a href="javascript:;" class="nav-link p-0">
+			<a href="javascript:;" class="nav-link p-0" @onclick=@(() => SideBarMinimize())>
 				<div class="sidenav-toggler-inner">
 					<i class="sidenav-toggler-line bg-white"></i>
 					<i class="sidenav-toggler-line bg-white"></i>
@@ -41,7 +41,7 @@
 					</a>
 				</li>
 				<li class="nav-item d-xl-none ps-3 d-flex align-items-center">
-					<a href="javascript:;" class="nav-link text-white p-0" id="iconNavbarSidenav">
+					<a href="javascript:;" class="nav-link text-white p-0" id="iconNavbarSidenav" @onclick=@(() => SideBarMinimize())>
 						<div class="sidenav-toggler-inner">
 							<i class="sidenav-toggler-line bg-white"></i>
 							<i class="sidenav-toggler-line bg-white"></i>
@@ -50,7 +50,7 @@
 					</a>
 				</li>
 				<li class="nav-item px-3 d-flex align-items-center">
-					<a href="javascript:;" class="nav-link text-white p-0" @onclick=@(() => OpenThemeSelector())>
+					<a href="javascript:;" class="nav-link text-white p-0" @onclick=@(() => ThemeSelector())>
 						<i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
 					</a>
 				</li>
@@ -134,9 +134,14 @@
 <!-- End Navbar -->
 @code {
 
-	async Task OpenThemeSelector()
+	async Task ThemeSelector()
 	{
 		AppState.SetIsShowThemeSelector();
+	}
+
+	async Task SideBarMinimize()
+	{
+		AppState.SetSideBarMinimize();
 	}
 
 	protected override void OnInitialized()
