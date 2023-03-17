@@ -1,4 +1,7 @@
-﻿<div class="fixed-plugin @IsShow">
+﻿@*@using Dashboard.StateContainers;
+@inject AppState AppState*@
+
+<div class="fixed-plugin @IsShow">
 	<a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
 		<i class="fa fa-cog py-2"> </i>
 	</a>
@@ -12,18 +15,17 @@
 				<button class="btn btn-link text-dark p-0 fixed-plugin-close-button" @onclick=@(() => Close())>
 					<i class="fa fa-close"></i>
 				</button>
-			</div>
-			<!-- End Toggle Button -->
+			</div>		
 		</div>
 		<hr class="horizontal dark my-1">
-		<div class="card-body pt-sm-3 pt-0 overflow-auto">
-			<!-- Sidebar Backgrounds -->
+		<div class="card-body pt-sm-3 pt-0 overflow-auto">		
 			<div>
 				<h6 class="mb-0">Sidebar Colors</h6>
 			</div>
 			<a href="javascript:void(0)" class="switch-trigger background-color">
 				<div class="badge-colors my-2 text-start">
-					<span class="badge filter bg-gradient-primary active" data-color="primary" @onclick=@(() => SideBarColor("primary"))></span>
+					<span class="badge filter bg-gradient-white active" data-color="primary" @onclick=@(() => SideBarColor("white"))></span>
+					<span class="badge filter bg-gradient-primary" data-color="primary" @onclick=@(() => SideBarColor("primary"))></span>
 					<span class="badge filter bg-gradient-dark" data-color="dark" @onclick=@(() => SideBarColor("dark"))></span>
 					<span class="badge filter bg-gradient-info" data-color="info" @onclick=@(() => SideBarColor("info"))></span>
 					<span class="badge filter bg-gradient-success" data-color="success" @onclick=@(() => SideBarColor("success"))></span>
@@ -70,8 +72,9 @@
 
 	string IsShow = "show";
 
-	async Task SideBarColor(string type)
-	{		
+	void SideBarColor(string color)
+	{
+		//AppState.SetSideBarColor("bg-"+color);
 	}
 
 	async Task SideBarType(string type)
