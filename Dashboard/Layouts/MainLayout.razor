@@ -1,7 +1,11 @@
-﻿@using Dashboard.Examples.Shared
+﻿@inject AppState AppState
+@implements IDisposable
+
+@using Dashboard.Examples.Shared
+@using Dashboard.StateContainers;
 @inherits LayoutComponentBase
 
-<body class="g-sidenav-show   bg-gray-100">
+<body class="g-sidenav-show  @(AppState.DarkMode ? "bg-gray-600 dark-version" : "bg-gray-100")   g-sidenav-@(AppState.SideBarMinimize ? "hidden" : "pinned")">
 	<div class="min-height-300 bg-primary position-absolute w-100"></div>
 	<SideBar/>
 	<main class="main-content position-relative border-radius-lg ">
@@ -15,3 +19,18 @@
 	</main>
 	<ThemeSelector/>
 </body>
+
+
+@code{
+
+	protected override void OnInitialized()
+	{
+		AppState.OnChange += StateHasChanged;
+	}
+
+	public void Dispose()
+	{
+		AppState.OnChange -= StateHasChanged;
+	}
+
+}

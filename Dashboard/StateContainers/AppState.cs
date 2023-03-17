@@ -3,53 +3,58 @@
 	public class AppState
 	{
 
-		//public bool IsShowSideBar { get; private set; }
-		//public string? SideBarColor { get; private set; }
-		//public string? SideBarType { get; private set; }
-		//public bool NavbarFixed { get; private set; }
-		//public bool NavbarMinimize { get; private set; }
-		//public bool DarkMode { get; private set; }
+		public bool IsShowThemeSelector { get; private set; }
+		public string? SideBarColor { get; private set; }
+		public string? SideBarType { get; private set; }
+		public bool SideBarMinimize { get; private set; } 
+		public bool NavbarFixed { get; private set; }		
+		public bool DarkMode { get; private set; }
 
-		//public event Action OnChange;
+		public event Action OnChange;
 
 
 
-		//public void SetSideBarColor(string color)
-		//{
-		//	SideBarColor = color;
-		//	NotifyStateChanged();
-		//}
+		//SideBar
+		public void SetSideBarColor(string color)
+		{
+			SideBarColor = color;
+			NotifyStateChanged();
+		}
 
-		//public void SetIsShowSideBar(bool isShow)
-		//{
-		//	IsShowSideBar = isShow;
-		//	NotifyStateChanged();
-		//}
+		public void SetSideBarType(string type)
+		{
+			SideBarType = type;
+			NotifyStateChanged();
+		}
 
-		//public void SetSideBarType(string type)
-		//{
-		//	SideBarType = type;
-		//	NotifyStateChanged();
-		//}
+		public void SetSideBarMinimize()
+		{			
+			SideBarMinimize = !SideBarMinimize;
+			NotifyStateChanged();
+		}
 
-		//public void SetNavbarFixed(bool isFixed)
-		//{
-		//	NavbarFixed = isFixed;
-		//	NotifyStateChanged();
-		//}
+		public void SetNavbarFixed()
+		{
+			NavbarFixed = !NavbarFixed;
+			NotifyStateChanged();
+		}		
 
-		//public void SetNavbarMinimize(bool isMinimizeNavBar)
-		//{
-		//	NavbarMinimize = isMinimizeNavBar;
-		//	NotifyStateChanged();
-		//}
+		public void SetDarkMode()
+		{
+			DarkMode = !DarkMode;
+			if (DarkMode) SideBarType = "bg-default";
 
-		//public void SetDarkMode(bool isDarkMode)
-		//{
-		//	DarkMode = isDarkMode;
-		//	NotifyStateChanged();
-		//}
+			NotifyStateChanged();
+		}
 
-		//private void NotifyStateChanged() => OnChange?.Invoke();
+
+		//ThemeSelector
+		public void SetIsShowThemeSelector()
+		{
+			IsShowThemeSelector = !IsShowThemeSelector;
+			NotifyStateChanged();
+		}
+
+		private void NotifyStateChanged() => OnChange?.Invoke();
 	}
 }

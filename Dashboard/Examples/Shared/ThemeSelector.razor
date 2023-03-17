@@ -1,7 +1,9 @@
-﻿@*@using Dashboard.StateContainers;
-@inject AppState AppState*@
+﻿@inject AppState AppState
 
-<div class="fixed-plugin @IsShow">
+@using Dashboard.StateContainers;
+
+
+<div class="fixed-plugin @(AppState.IsShowThemeSelector ? "show" : "")">
 	<a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
 		<i class="fa fa-cog py-2"> </i>
 	</a>
@@ -23,8 +25,7 @@
 				<h6 class="mb-0">Sidebar Colors</h6>
 			</div>
 			<a href="javascript:void(0)" class="switch-trigger background-color">
-				<div class="badge-colors my-2 text-start">
-					<span class="badge filter bg-gradient-white active" data-color="primary" @onclick=@(() => SideBarColor("white"))></span>
+				<div class="badge-colors my-2 text-start">				
 					<span class="badge filter bg-gradient-primary" data-color="primary" @onclick=@(() => SideBarColor("primary"))></span>
 					<span class="badge filter bg-gradient-dark" data-color="dark" @onclick=@(() => SideBarColor("dark"))></span>
 					<span class="badge filter bg-gradient-info" data-color="info" @onclick=@(() => SideBarColor("info"))></span>
@@ -39,29 +40,29 @@
 				<p class="text-sm">Choose between 2 different sidenav types.</p>
 			</div>
 			<div class="d-flex">
-				<button class="btn bg-gradient-primary w-100 px-3 mb-2 active me-2" data-class="bg-white" @onclick=@(() => SideBarType("white"))>White</button>
-				<button class="btn bg-gradient-primary w-100 px-3 mb-2" data-class="bg-default" @onclick=@(() => SideBarType("dark"))>Dark</button>
+				<button class="btn bg-gradient-primary w-100 px-3 mb-2 active me-2" data-class="bg-white" @onclick=@(() => SideBarType("bg-white"))>White</button>
+				<button class="btn bg-gradient-primary w-100 px-3 mb-2" data-class="bg-default" @onclick=@(() => SideBarType("bg-default"))>Dark</button>
 			</div>
 			<p class="text-sm d-xl-none d-block mt-2">You can change the sidenav type just on desktop view.</p>
 			<!-- Navbar Fixed -->
 			<div class="d-flex my-3">
 				<h6 class="mb-0">Navbar Fixed</h6>
 				<div class="form-check form-switch ps-0 ms-auto my-auto">
-					<input class="form-check-input mt-1 ms-auto" type="checkbox" id="navbarFixed" @onclick=@(() => NavbarFixed(this)) >
+					<input class="form-check-input mt-1 ms-auto" type="checkbox" id="navbarFixed" @onclick=@(() => NavbarFixed()) >
 				</div>
 			</div>
 			<hr class="horizontal dark mb-1">
 			<div class="d-flex my-4">
 				<h6 class="mb-0">Sidenav Mini</h6>
 				<div class="form-check form-switch ps-0 ms-auto my-auto">
-					<input class="form-check-input mt-1 ms-auto" type="checkbox" id="navbarMinimize" @onclick=@(() => NavbarMinimize(this))>
+					<input class="form-check-input mt-1 ms-auto" type="checkbox" id="navbarMinimize" @onclick=@(() => NavbarMinimize())>
 				</div>
 			</div>
 			<hr class="horizontal dark my-sm-4">
 			<div class="mt-2 mb-5 d-flex">
 				<h6 class="mb-0">Light / Dark</h6>
 				<div class="form-check form-switch ps-0 ms-auto my-auto">
-					<input class="form-check-input mt-1 ms-auto" type="checkbox" id="dark-version" @onclick=@(() => DarkMode(this))>
+					<input class="form-check-input mt-1 ms-auto" type="checkbox" id="dark-version" @onclick=@(() => DarkMode())>
 				</div>
 			</div>			
 		</div>
@@ -69,33 +70,45 @@
 </div>
 
 @code {
-
-	string IsShow = "show";
-
-	void SideBarColor(string color)
+		
+	async Task SideBarColor(string color)
 	{
-		//AppState.SetSideBarColor("bg-"+color);
+		AppState.SetSideBarColor(color);
 	}
 
 	async Task SideBarType(string type)
 	{
+		AppState.SetSideBarType(type);
 	}
 
-	async Task NavbarFixed(object type)
+	async Task NavbarFixed()
 	{
+		AppState.SetNavbarFixed();
 	}
 
-	async Task NavbarMinimize(object type)
+	async Task NavbarMinimize()
 	{
+		AppState.SetSideBarMinimize();
 	}
 
-	async Task DarkMode(object type)
+	async Task DarkMode()
 	{
+		AppState.SetDarkMode();
 	}
 
 	async Task Close()
 	{
-		IsShow = "";
+		AppState.SetIsShowThemeSelector();
+	}
+
+	protected override void OnInitialized()
+	{
+		AppState.OnChange += StateHasChanged;
+	}
+
+	public void Dispose()
+	{
+		AppState.OnChange -= StateHasChanged;
 	}
 
 }

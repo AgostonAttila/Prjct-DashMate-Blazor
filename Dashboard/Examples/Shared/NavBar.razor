@@ -1,4 +1,7 @@
-﻿ <!-- Navbar -->
+﻿@using Dashboard.StateContainers;
+
+@inject AppState AppState
+@implements IDisposable
 
 <nav class="navbar navbar-main navbar-expand-lg  px-0 mx-4 shadow-none border-radius-xl z-index-sticky " id="navbarBlur" data-scroll="false">
 	<div class="container-fluid py-1 px-3">
@@ -47,7 +50,7 @@
 					</a>
 				</li>
 				<li class="nav-item px-3 d-flex align-items-center">
-					<a href="javascript:;" class="nav-link text-white p-0">
+					<a href="javascript:;" class="nav-link text-white p-0" @onclick=@(() => OpenThemeSelector())>
 						<i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
 					</a>
 				</li>
@@ -130,5 +133,20 @@
 </nav>
 <!-- End Navbar -->
 @code {
+
+	async Task OpenThemeSelector()
+	{
+		AppState.SetIsShowThemeSelector();
+	}
+
+	protected override void OnInitialized()
+	{
+		AppState.OnChange += StateHasChanged;
+	}
+
+	public void Dispose()
+	{
+		AppState.OnChange -= StateHasChanged;
+	}
 
 }

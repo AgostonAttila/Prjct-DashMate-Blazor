@@ -1,7 +1,7 @@
-﻿@*@inject AppState AppState
+﻿@inject AppState AppState
 @implements IDisposable
 
-@using Dashboard.StateContainers;*@
+@using Dashboard.StateContainers;
 
 @using Dashboard.Models;
 
@@ -9,7 +9,7 @@
 
 @*show active breadcrumb*@
 
-<aside class="sidenav @*@AppState.SideBarColor*@ bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
+<aside class="sidenav @(AppState.SideBarType != "bg-default" ? "bg-white" : "bg-default")  navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main" data-color="@AppState.SideBarColor">
 	<div class="sidenav-header">
 		<i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
 		<a class="navbar-brand m-0" href="/default" target="_blank">
@@ -21,7 +21,7 @@
 	<div class="collapse navbar-collapse  w-auto h-auto" id="sidenav-collapse-main">
 		<ul class="navbar-nav">
 			<li class="nav-item">
-				<a data-bs-toggle="collapse" href="#dashboardsExamples" class="nav-link" aria-controls="dashboardsExamples" role="button" aria-expanded="false">
+				<a data-bs-toggle="collapse" href="#dashboardsExamples" class="nav-link active" aria-controls="dashboardsExamples" role="button" aria-expanded="false">
 					<div class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
 						<i class="ni ni-shop text-primary text-sm opacity-10"></i>
 					</div>
@@ -373,15 +373,15 @@
 
 	string sideBarTitle = "DashMate - Blazor";
 
-	//protected override void OnInitialized()
-	//{
-	//	AppState.OnChange += StateHasChanged;
-	//}
+	protected override void OnInitialized()
+	{
+		AppState.OnChange += StateHasChanged;
+	}
 
-	//public void Dispose()
-	//{
-	//	AppState.OnChange -= StateHasChanged;
-	//}
+	public void Dispose()
+	{
+		AppState.OnChange -= StateHasChanged;
+	}
 
 
 	List<MenuItem> dashboardMenuItems = new List<MenuItem>
