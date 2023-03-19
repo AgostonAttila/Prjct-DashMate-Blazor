@@ -536,11 +536,17 @@ video {
 .bottom-1 {
   bottom: 0.25rem;
 }
+.left-auto {
+  left: auto;
+}
 .top-0 {
   top: 0px;
 }
 .top-1 {
   top: 0.25rem;
+}
+.top-2 {
+  top: 0.5rem;
 }
 .z-40 {
   z-index: 40;
