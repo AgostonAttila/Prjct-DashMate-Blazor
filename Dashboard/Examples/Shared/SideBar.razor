@@ -2,12 +2,7 @@
 @implements IDisposable
 
 @using Dashboard.StateContainers;
-
 @using Dashboard.Models;
-
-
-
-@*show active breadcrumb*@
 
 <aside class="sidenav @(AppState.SideBarType != "bg-default" ? "bg-white" : "bg-default")  navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main" data-color="@AppState.SideBarColor">
 	<div class="sidenav-header">
@@ -21,17 +16,17 @@
 	<div class="collapse navbar-collapse  w-auto h-auto" id="sidenav-collapse-main">
 		<ul class="navbar-nav">
 			<li class="nav-item">
-				<NavLink data-bs-toggle="collapse" href="#dashboardsExamples" class="nav-link" aria-controls="dashboardsExamples" role="button" aria-expanded="false">
+				<a data-bs-toggle="collapse" href="#dashboardsExamples" class="nav-link @DashboardActiveClass" aria-controls="dashboardsExamples" role="button" aria-expanded="false">
 					<div class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
 						<i class="ni ni-shop text-primary text-sm opacity-10"></i>
 					</div>
 					<span class="nav-link-text ms-1">Dashboards</span>
-				</NavLink>
+				</a>
 				<div class="collapse " id="dashboardsExamples">
 					<ul class="nav ms-4">
 						@foreach (MenuItem menuItem in dashboardMenuItems)
 						{
-							<li class="nav-item">
+							<li class="nav-item" @onclick=@(() => NavLinkOnClick(@menuItem.NormalTitle))>
 								<NavLink class="nav-link" href="@menuItem.Link">
 									<span class="sidenav-mini-icon"> @menuItem.MiniTitle </span>
 									<span class="sidenav-normal"> @menuItem.NormalTitle </span>
@@ -45,12 +40,12 @@
 				<h6 class="ps-4  ms-2 text-uppercase text-xs font-weight-bolder opacity-6">PAGES</h6>
 			</li>
 			<li class="nav-item">
-				<NavLink data-bs-toggle="collapse" href="#pagesExamples" class="nav-link " aria-controls="pagesExamples" role="button" aria-expanded="false">
+				<a data-bs-toggle="collapse" href="#pagesExamples" class="nav-link @PagesActiveClass" aria-controls="pagesExamples" role="button" aria-expanded="false">
 					<div class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
 						<i class="ni ni-ungroup text-warning text-sm opacity-10"></i>
 					</div>
 					<span class="nav-link-text ms-1">Pages</span>
-				</NavLink>
+				</a>
 				<div class="collapse " id="pagesExamples">
 					<ul class="nav ms-4">
 						<li class="nav-item ">
@@ -62,7 +57,7 @@
 								<ul class="nav nav-sm flex-column">
 									@foreach (MenuItem menuItem in profileMenuItems)
 									{
-										<li class="nav-item">
+										<li class="nav-item" @onclick=@(() => NavLinkOnClick(@menuItem.NormalTitle))>
 											<NavLink class="nav-link " href="@menuItem.Link">
 												<span class="sidenav-mini-icon text-xs"> @menuItem.MiniTitle </span>
 												<span class="sidenav-normal"> @menuItem.NormalTitle </span>
@@ -81,7 +76,7 @@
 								<ul class="nav nav-sm flex-column">
 									@foreach (MenuItem menuItem in usersMenuItems)
 									{
-										<li class="nav-item">
+										<li class="nav-item" @onclick=@(() => NavLinkOnClick(@menuItem.NormalTitle))>
 											<NavLink class="nav-link " href="@menuItem.Link">
 												<span class="sidenav-mini-icon text-xs"> @menuItem.MiniTitle </span>
 												<span class="sidenav-normal"> @menuItem.NormalTitle </span>
@@ -100,7 +95,7 @@
 								<ul class="nav nav-sm flex-column">
 									@foreach (MenuItem menuItem in accountMenuItems)
 									{
-										<li class="nav-item">
+										<li class="nav-item" @onclick=@(() => NavLinkOnClick(@menuItem.NormalTitle))>
 											<NavLink class="nav-link " href="@menuItem.Link">
 												<span class="sidenav-mini-icon text-xs"> @menuItem.MiniTitle </span>
 												<span class="sidenav-normal"> @menuItem.NormalTitle </span>
@@ -119,7 +114,7 @@
 								<ul class="nav nav-sm flex-column">
 									@foreach (MenuItem menuItem in projectMenuItems)
 									{
-										<li class="nav-item">
+										<li class="nav-item" @onclick=@(() => NavLinkOnClick(@menuItem.NormalTitle))>
 											<NavLink class="nav-link " href="@menuItem.Link">
 												<span class="sidenav-mini-icon text-xs"> @menuItem.MiniTitle </span>
 												<span class="sidenav-normal"> @menuItem.NormalTitle </span>
@@ -131,7 +126,7 @@
 						</li>
 						@foreach (MenuItem menuItem in pagesMenuItems)
 						{
-							<li class="nav-item">
+							<li class="nav-item" @onclick=@(() => NavLinkOnClick(@menuItem.NormalTitle))>
 								<NavLink class="nav-link " href="@menuItem.Link">
 									<span class="sidenav-mini-icon text-xs"> @menuItem.MiniTitle </span>
 									<span class="sidenav-normal"> @menuItem.NormalTitle </span>
@@ -142,17 +137,17 @@
 				</div>
 			</li>
 			<li class="nav-item">
-				<NavLink data-bs-toggle="collapse" href="#applicationsExamples" class="nav-link " aria-controls="applicationsExamples" role="button" aria-expanded="false">
+				<a data-bs-toggle="collapse" href="#applicationsExamples" class="nav-link @ApplicationActiveClass" aria-controls="applicationsExamples" role="button" aria-expanded="false">
 					<div class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
 						<i class="ni ni-ui-04 text-info text-sm opacity-10"></i>
 					</div>
 					<span class="nav-link-text ms-1">Applications</span>
-				</NavLink>
+				</a>
 				<div class="collapse " id="applicationsExamples">
 					<ul class="nav ms-4">
 						@foreach (MenuItem menuItem in applicationsMenuItems)
 						{
-							<li class="nav-item ">
+							<li class="nav-item " @onclick=@(() => NavLinkOnClick(@menuItem.NormalTitle))>
 								<NavLink class="nav-link " href="@menuItem.Link">
 									<span class="sidenav-mini-icon"> @menuItem.MiniTitle </span>
 									<span class="sidenav-normal"> @menuItem.NormalTitle </span>
@@ -163,15 +158,15 @@
 				</div>
 			</li>
 			<li class="nav-item">
-				<NavLink data-bs-toggle="collapse" href="#ecommerceExamples" class="nav-link " aria-controls="ecommerceExamples" role="button" aria-expanded="false">
+				<a data-bs-toggle="collapse" href="#ecommerceExamples" class="nav-link @EcommerceActiveClass" aria-controls="ecommerceExamples" role="button" aria-expanded="false">
 					<div class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
 						<i class="ni ni-archive-2 text-success text-sm opacity-10"></i>
 					</div>
 					<span class="nav-link-text ms-1">Ecommerce</span>
-				</NavLink>
+				</a>
 				<div class="collapse " id="ecommerceExamples">
 					<ul class="nav ms-4">
-						<li class="nav-item ">
+						<li class="nav-item " @onclick=@(() => NavLinkOnClick("Overview"))>
 							<NavLink class="nav-link " href="/overview">
 								<span class="sidenav-mini-icon"> O </span>
 								<span class="sidenav-normal"> Overview </span>
@@ -186,7 +181,7 @@
 								<ul class="nav nav-sm flex-column">
 									@foreach (MenuItem menuItem in productsMenuItems)
 									{
-										<li class="nav-item ">
+										<li class="nav-item " @onclick=@(() => NavLinkOnClick(@menuItem.NormalTitle))>
 											<NavLink class="nav-link " href="@menuItem.Link">
 												<span class="sidenav-mini-icon text-xs"> @menuItem.MiniTitle </span>
 												<span class="sidenav-normal"> @menuItem.NormalTitle </span>
@@ -205,7 +200,7 @@
 								<ul class="nav nav-sm flex-column">
 									@foreach (MenuItem menuItem in ordersMenuItems)
 									{
-										<li class="nav-item ">
+										<li class="nav-item " @onclick=@(() => NavLinkOnClick(@menuItem.NormalTitle))>
 											<NavLink class="nav-link " href="@menuItem.Link">
 												<span class="sidenav-mini-icon text-xs"> @menuItem.MiniTitle </span>
 												<span class="sidenav-normal"> @menuItem.NormalTitle </span>
@@ -215,7 +210,7 @@
 								</ul>
 							</div>
 						</li>
-						<li class="nav-item ">
+						<li class="nav-item " @onclick=@(() => NavLinkOnClick("Referral"))>
 							<NavLink class="nav-link " href="/referral">
 								<span class="sidenav-mini-icon"> R </span>
 								<span class="sidenav-normal"> Referral </span>
@@ -225,12 +220,12 @@
 				</div>
 			</li>
 			<li class="nav-item">
-				<NavLink data-bs-toggle="collapse" href="#authExamples" class="nav-link " aria-controls="authExamples" role="button" aria-expanded="false">
+				<a data-bs-toggle="collapse" href="#authExamples" class="nav-link @AuthenticationActiveClass" aria-controls="authExamples" role="button" aria-expanded="false">
 					<div class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
 						<i class="ni ni-single-copy-04 text-danger text-sm opacity-10"></i>
 					</div>
 					<span class="nav-link-text ms-1">Authentication</span>
-				</NavLink>
+				</a>
 				<div class="collapse " id="authExamples">
 					<ul class="nav ms-4">
 						<li class="nav-item ">
@@ -242,7 +237,7 @@
 								<ul class="nav nav-sm flex-column">
 									@foreach (MenuItem menuItem in singinMenuItems)
 									{
-										<li class="nav-item ">
+										<li class="nav-item " @onclick=@(() => NavLinkOnClick(@menuItem.NormalTitle))>
 											<NavLink class="nav-link " href="@menuItem.Link">
 												<span class="sidenav-mini-icon text-xs"> @menuItem.MiniTitle </span>
 												<span class="sidenav-normal"> @menuItem.NormalTitle </span>
@@ -261,7 +256,7 @@
 								<ul class="nav nav-sm flex-column">
 									@foreach (MenuItem menuItem in singupMenuItems)
 									{
-										<li class="nav-item ">
+										<li class="nav-item " @onclick=@(() => NavLinkOnClick(@menuItem.NormalTitle))>
 											<NavLink class="nav-link " href="@menuItem.Link">
 												<span class="sidenav-mini-icon text-xs"> @menuItem.MiniTitle </span>
 												<span class="sidenav-normal"> @menuItem.NormalTitle </span>
@@ -280,7 +275,7 @@
 								<ul class="nav nav-sm flex-column">
 									@foreach (MenuItem menuItem in resetMenuItems)
 									{
-										<li class="nav-item ">
+										<li class="nav-item " @onclick=@(() => NavLinkOnClick(@menuItem.NormalTitle))>
 											<NavLink class="nav-link " href="@menuItem.Link">
 												<span class="sidenav-mini-icon text-xs"> @menuItem.MiniTitle </span>
 												<span class="sidenav-normal"> @menuItem.NormalTitle </span>
@@ -299,7 +294,7 @@
 								<ul class="nav nav-sm flex-column">
 									@foreach (MenuItem menuItem in lockMenuItems)
 									{
-										<li class="nav-item ">
+										<li class="nav-item " @onclick=@(() => NavLinkOnClick(@menuItem.NormalTitle))>
 											<NavLink class="nav-link " href="@menuItem.Link">
 												<span class="sidenav-mini-icon text-xs"> @menuItem.MiniTitle </span>
 												<span class="sidenav-normal"> @menuItem.NormalTitle </span>
@@ -318,7 +313,7 @@
 								<ul class="nav nav-sm flex-column">
 									@foreach (MenuItem menuItem in verificationMenuItems)
 									{
-										<li class="nav-item ">
+										<li class="nav-item " @onclick=@(() => NavLinkOnClick(@menuItem.NormalTitle))>
 											<NavLink class="nav-link " href="@menuItem.Link">
 												<span class="sidenav-mini-icon text-xs"> @menuItem.MiniTitle </span>
 												<span class="sidenav-normal"> @menuItem.NormalTitle </span>
@@ -337,14 +332,13 @@
 								<ul class="nav nav-sm flex-column">
 									@foreach (MenuItem menuItem in errorMenuItems)
 									{
-										<li class="nav-item ">
+										<li class="nav-item " @onclick=@(() => NavLinkOnClick(@menuItem.NormalTitle))>
 											<NavLink class="nav-link " href="@menuItem.Link">
 												<span class="sidenav-mini-icon text-xs"> @menuItem.MiniTitle </span>
 												<span class="sidenav-normal"> @menuItem.NormalTitle </span>
 											</NavLink>
 										</li>
 									}
-
 								</ul>
 							</div>
 						</li>
@@ -373,6 +367,24 @@
 
 	string sideBarTitle = "DashMate - Blazor";
 
+	string DashboardActiveClass = "";
+	string PagesActiveClass = "";
+	string ApplicationActiveClass = "";
+	string EcommerceActiveClass = "";
+	string AuthenticationActiveClass = "";
+
+
+
+	async Task NavLinkOnClick(string normalTitle)
+	{
+		MainMenuItem activeMenuItem = mainMenuItemList.Where(p => p.MenuItemList.Any(o => o.NormalTitle == normalTitle)).FirstOrDefault();
+		
+		DashboardActiveClass = (activeMenuItem?.Name == "Dashboards") ? "active" : "";
+		PagesActiveClass = (activeMenuItem?.Name == "Pages") ? "active" : "";
+		ApplicationActiveClass = (activeMenuItem?.Name == "Applications") ? "active" : "";
+		EcommerceActiveClass = (activeMenuItem?.Name == "Ecommerce") ? "active" : "";
+		AuthenticationActiveClass = (activeMenuItem?.Name == "Authentication") ? "active" : "";
+	}
 
 	protected override void OnInitialized()
 	{
@@ -385,7 +397,16 @@
 	}
 
 
-	List<MenuItem> dashboardMenuItems = new List<MenuItem>
+	List<MainMenuItem> mainMenuItemList = new List<MainMenuItem>
+	{
+	 new MainMenuItem{ Name = "Dashboards", MenuItemList = dashboardMenuItems },
+	 new MainMenuItem{ Name = "Pages" , MenuItemList = pagesMainMenuItems },
+	 new MainMenuItem{ Name = "Applications" ,MenuItemList = applicationsMenuItems},
+	 new MainMenuItem{ Name = "Ecommerce"  ,MenuItemList = ecommerceMainMenuItems},
+	 new MainMenuItem{ Name = "Authentication" ,MenuItemList = authenticationMainItems}
+	};
+
+	static List<MenuItem> dashboardMenuItems = new List<MenuItem>
 	{
 		//new MenuItem{ Link = "/landing",  MiniTitle = "L" , NormalTitle =  "Landing"  },
 		new MenuItem{ Link = "/default",  MiniTitle = "D" , NormalTitle =  "Default"  },
@@ -394,7 +415,7 @@
 		//new MenuItem{ Link = "/virtualreality",  MiniTitle = "V" , NormalTitle =  "Virtual Reality"  },
 		new MenuItem{ Link = "/crm",  MiniTitle = "C" , NormalTitle =  "CRM"  }
 	};
-	List<MenuItem> applicationsMenuItems = new List<MenuItem>
+	static List<MenuItem> applicationsMenuItems = new List<MenuItem>
 	{
 		new MenuItem{ Link = "/kanban",  MiniTitle = "L" , NormalTitle =  "Kanban"  },
 		new MenuItem{ Link = "/wizard",  MiniTitle = "W" , NormalTitle =  "Wizard"  },
@@ -402,32 +423,32 @@
 		new MenuItem{ Link = "/calendar",  MiniTitle = "C" , NormalTitle =  "Calendar"  },
 		new MenuItem{ Link = "/analytics",  MiniTitle = "A" , NormalTitle =  "Analytics"  }
 	};
-	List<MenuItem> profileMenuItems = new List<MenuItem>
+	static List<MenuItem> profileMenuItems = new List<MenuItem>
 	{
 		new MenuItem{ Link = "/profileoverview",  MiniTitle = "P" , NormalTitle =  "Profile Overview"  },
 		new MenuItem{ Link = "/teams",  MiniTitle = "T" , NormalTitle =  "Teams"  },
 		new MenuItem{ Link = "/allproject",  MiniTitle = "A" , NormalTitle =  "All Projects"  }
 	};
-	List<MenuItem> usersMenuItems = new List<MenuItem>
+	public static List<MenuItem> usersMenuItems = new List<MenuItem>
 	{
 		new MenuItem{ Link = "/reports",  MiniTitle = "R" , NormalTitle =  "Reports"  },
 		new MenuItem{ Link = "/newuser",  MiniTitle = "N" , NormalTitle =  "New User"  },
 	};
-	List<MenuItem> accountMenuItems = new List<MenuItem>
+	static List<MenuItem> accountMenuItems = new List<MenuItem>
 	{
 		new MenuItem{ Link = "/settings",  MiniTitle = "S" , NormalTitle =  "Settings"  },
 		new MenuItem{ Link = "/billing",  MiniTitle = "B" , NormalTitle =  "Billing"  },
 		new MenuItem{ Link = "/invoice",  MiniTitle = "I" , NormalTitle =  "Invoice"  },
 		new MenuItem{ Link = "/security",  MiniTitle = "S" , NormalTitle =  "Security"  },
 	};
-	List<MenuItem> projectMenuItems = new List<MenuItem>
+	static List<MenuItem> projectMenuItems = new List<MenuItem>
 	{
 		new MenuItem{ Link = "/general",  MiniTitle = "G" , NormalTitle =  "General"  },
 		new MenuItem{ Link = "/timeline",  MiniTitle = "T" , NormalTitle =  "Timeline"  },
 		new MenuItem{ Link = "/newproject",  MiniTitle = "N" , NormalTitle =  "New Project"  },
 
 	};
-	List<MenuItem> pagesMenuItems = new List<MenuItem>
+	static List<MenuItem> pagesMenuItems = new List<MenuItem>
 	{
 		new MenuItem{ Link = "/pricingpage",  MiniTitle = "L" , NormalTitle =  "Pricing Page"  },
 		new MenuItem{ Link = "/rtl",  MiniTitle = "R" , NormalTitle =  "RTL"  },
@@ -438,56 +459,114 @@
 		new MenuItem{ Link = "/chat",  MiniTitle = "C" , NormalTitle =  "Chat"  },
 		new MenuItem{ Link = "/syncfusion",  MiniTitle = "S" , NormalTitle =  "Syncfusion"  }
 	};
-	List<MenuItem> productsMenuItems = new List<MenuItem>
+	static List<MenuItem> productsMenuItems = new List<MenuItem>
 	{
 		new MenuItem{ Link = "/newproduct",  MiniTitle = "N" , NormalTitle =  "New Product"  },
 		new MenuItem{ Link = "/editproduct",  MiniTitle = "E" , NormalTitle =  "Edit Product"  },
 		new MenuItem{ Link = "/productpage",  MiniTitle = "P" , NormalTitle =  "Product Page"  },
 		new MenuItem{ Link = "/productslist",  MiniTitle = "P" , NormalTitle =  "Products List"  },
 	};
-	List<MenuItem> ordersMenuItems = new List<MenuItem>
+	static List<MenuItem> ordersMenuItems = new List<MenuItem>
 	{
 		new MenuItem{ Link = "/orderlist",  MiniTitle = "o" , NormalTitle =  "Order List"  },
 		new MenuItem{ Link = "/orderdetail",  MiniTitle = "o" , NormalTitle =  "Order Details"  }
 	};
-	List<MenuItem> singinMenuItems = new List<MenuItem>
+	static List<MenuItem> singinMenuItems = new List<MenuItem>
 	{
 		new MenuItem{ Link = "/singinbasic",  MiniTitle = "B" , NormalTitle =  "Basic"  },
 		new MenuItem{ Link = "/singincover",  MiniTitle = "C" , NormalTitle =  "Cover"  },
 		new MenuItem{ Link = "/singinillustration",  MiniTitle = "I" , NormalTitle =  "Illustration"  },
 	};
-	List<MenuItem> singupMenuItems = new List<MenuItem>
+	static List<MenuItem> singupMenuItems = new List<MenuItem>
 	{
 		new MenuItem{ Link = "/singupbasic",  MiniTitle = "B" , NormalTitle =  "Basic"  },
 		new MenuItem{ Link = "/singupcover",  MiniTitle = "C" , NormalTitle =  "Cover"  },
 		new MenuItem{ Link = "/singupillustration",  MiniTitle = "I" , NormalTitle =  "Illustration"  },
 	};
-	List<MenuItem> resetMenuItems = new List<MenuItem>
+	static List<MenuItem> resetMenuItems = new List<MenuItem>
 	{
 		new MenuItem{ Link = "/resetbasic",  MiniTitle = "B" , NormalTitle =  "Basic"  },
 		new MenuItem{ Link = "/resetcover",  MiniTitle = "C" , NormalTitle =  "Cover"  },
 		new MenuItem{ Link = "/resetillustration",  MiniTitle = "I" , NormalTitle =  "Illustration"  },
 	};
-	List<MenuItem> lockMenuItems = new List<MenuItem>
+	static List<MenuItem> lockMenuItems = new List<MenuItem>
 	{
 		new MenuItem{ Link = "/lockbasic",  MiniTitle = "B" , NormalTitle =  "Basic"  },
 		new MenuItem{ Link = "/lockcover",  MiniTitle = "C" , NormalTitle =  "Cover"  },
 		new MenuItem{ Link = "/lockillustration",  MiniTitle = "I" , NormalTitle =  "Illustration"  },
 	};
-	List<MenuItem> verificationMenuItems = new List<MenuItem>
+	static List<MenuItem> verificationMenuItems = new List<MenuItem>
 	{
 		new MenuItem{ Link = "/verificationbasic",  MiniTitle = "B" , NormalTitle =  "Basic"  },
 		new MenuItem{ Link = "/verificationcover",  MiniTitle = "C" , NormalTitle =  "Cover"  },
 		new MenuItem{ Link = "/verificationillustration",  MiniTitle = "I" , NormalTitle =  "Illustration"  },
 	};
-	List<MenuItem> errorMenuItems = new List<MenuItem>
+	static List<MenuItem> errorMenuItems = new List<MenuItem>
 	{
 		new MenuItem{ Link = "/404",  MiniTitle = "E" , NormalTitle =  "Error 404"  },
 		new MenuItem{ Link = "/500",  MiniTitle = "E" , NormalTitle =  "Error 500"  }
 	};
 
 
-	
+
+	static List<MenuItem> pagesMainMenuItems = new List<MenuItem>
+	{
+		new MenuItem{ Link = "/profileoverview",  MiniTitle = "P" , NormalTitle =  "Profile Overview"  },
+		new MenuItem{ Link = "/teams",  MiniTitle = "T" , NormalTitle =  "Teams"  },
+		new MenuItem{ Link = "/allproject",  MiniTitle = "A" , NormalTitle =  "All Projects"  },
+		new MenuItem{ Link = "/reports",  MiniTitle = "R" , NormalTitle =  "Reports"  },
+		new MenuItem{ Link = "/newuser",  MiniTitle = "N" , NormalTitle =  "New User"  },
+		new MenuItem{ Link = "/settings",  MiniTitle = "S" , NormalTitle =  "Settings"  },
+		new MenuItem{ Link = "/billing",  MiniTitle = "B" , NormalTitle =  "Billing"  },
+		new MenuItem{ Link = "/invoice",  MiniTitle = "I" , NormalTitle =  "Invoice"  },
+		new MenuItem{ Link = "/security",  MiniTitle = "S" , NormalTitle =  "Security"  },
+		new MenuItem{ Link = "/general",  MiniTitle = "G" , NormalTitle =  "General"  },
+		new MenuItem{ Link = "/timeline",  MiniTitle = "T" , NormalTitle =  "Timeline"  },
+		new MenuItem{ Link = "/newproject",  MiniTitle = "N" , NormalTitle =  "New Project"  },
+		new MenuItem{ Link = "/pricingpage",  MiniTitle = "L" , NormalTitle =  "Pricing Page"  },
+		new MenuItem{ Link = "/rtl",  MiniTitle = "R" , NormalTitle =  "RTL"  },
+		new MenuItem{ Link = "/widgets",  MiniTitle = "W" , NormalTitle =  "Widgets"  },
+		new MenuItem{ Link = "/charts",  MiniTitle = "C" , NormalTitle =  "Charts"  },
+		new MenuItem{ Link = "/sweetalerts",  MiniTitle = "S" , NormalTitle =  "Sweet Alerts"  },
+		new MenuItem{ Link = "/notifications",  MiniTitle = "N" , NormalTitle =  "Notifications"  },
+		new MenuItem{ Link = "/chat",  MiniTitle = "C" , NormalTitle =  "Chat"  },
+		new MenuItem{ Link = "/syncfusion",  MiniTitle = "S" , NormalTitle =  "Syncfusion"  }
+	};
+
+	static List<MenuItem> ecommerceMainMenuItems = new List<MenuItem>
+	{
+		new MenuItem{ Link = "/overview",  MiniTitle = "O" , NormalTitle =  "Overview"  },
+		new MenuItem{ Link = "/newproduct",  MiniTitle = "N" , NormalTitle =  "New Product"  },
+		new MenuItem{ Link = "/editproduct",  MiniTitle = "E" , NormalTitle =  "Edit Product"  },
+		new MenuItem{ Link = "/productpage",  MiniTitle = "P" , NormalTitle =  "Product Page"  },
+		new MenuItem{ Link = "/productslist",  MiniTitle = "P" , NormalTitle =  "Products List"  },
+		new MenuItem{ Link = "/orderlist",  MiniTitle = "o" , NormalTitle =  "Order List"  },
+		new MenuItem{ Link = "/orderdetail",  MiniTitle = "o" , NormalTitle =  "Order Details"  },
+		new MenuItem{ Link = "/referral",  MiniTitle = "R" , NormalTitle =  "Referral"  },
+	};
+
+	static List<MenuItem> authenticationMainItems = new List<MenuItem>
+	{
+		new MenuItem{ Link = "/singinbasic",  MiniTitle = "B" , NormalTitle =  "Basic"  },
+		new MenuItem{ Link = "/singincover",  MiniTitle = "C" , NormalTitle =  "Cover"  },
+		new MenuItem{ Link = "/singinillustration",  MiniTitle = "I" , NormalTitle =  "Illustration"  },
+		new MenuItem{ Link = "/singupbasic",  MiniTitle = "B" , NormalTitle =  "Basic"  },
+		new MenuItem{ Link = "/singupcover",  MiniTitle = "C" , NormalTitle =  "Cover"  },
+		new MenuItem{ Link = "/singupillustration",  MiniTitle = "I" , NormalTitle =  "Illustration"  },
+		new MenuItem{ Link = "/resetbasic",  MiniTitle = "B" , NormalTitle =  "Basic"  },
+		new MenuItem{ Link = "/resetcover",  MiniTitle = "C" , NormalTitle =  "Cover"  },
+		new MenuItem{ Link = "/resetillustration",  MiniTitle = "I" , NormalTitle =  "Illustration"  },
+		new MenuItem{ Link = "/lockbasic",  MiniTitle = "B" , NormalTitle =  "Basic"  },
+		new MenuItem{ Link = "/lockcover",  MiniTitle = "C" , NormalTitle =  "Cover"  },
+		new MenuItem{ Link = "/lockillustration",  MiniTitle = "I" , NormalTitle =  "Illustration"  },
+		new MenuItem{ Link = "/verificationbasic",  MiniTitle = "B" , NormalTitle =  "Basic"  },
+		new MenuItem{ Link = "/verificationcover",  MiniTitle = "C" , NormalTitle =  "Cover"  },
+		new MenuItem{ Link = "/verificationillustration",  MiniTitle = "I" , NormalTitle =  "Illustration"  },
+		new MenuItem{ Link = "/404",  MiniTitle = "E" , NormalTitle =  "Error 404"  },
+		new MenuItem{ Link = "/500",  MiniTitle = "E" , NormalTitle =  "Error 500"  }
+	};
+
+
 
 
 
