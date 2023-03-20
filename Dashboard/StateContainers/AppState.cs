@@ -15,8 +15,10 @@
 		public bool DarkMode { get; private set; }
 
 
-		public string NavBarSelectedMenus { get; private set; }
-		
+		public string NavBarSelectedMainMenu { get; private set; } = "Dashboards";
+
+		public string NavBarSelectedMenu { get; private set; } = "Default";
+
 
 		public event Action OnChange;
 
@@ -66,9 +68,15 @@
 		#endregion
 
 		#region NavBar
-		public void SetNavBarSelectedMenus(string text)
+		public void SetNavBarSelectedMainMenu(string text)
 		{
-			NavBarSelectedMenus = text;
+			NavBarSelectedMainMenu = text;
+			NotifyStateChanged();
+		}
+
+		public void SetNavBarSelectedMenu(string text)
+		{
+			NavBarSelectedMenu = text;
 			NotifyStateChanged();
 		}
 		#endregion

@@ -12,10 +12,10 @@
 						<i class="ni ni-box-2"></i>
 					</a>
 				</li>
-				<li class="breadcrumb-item text-sm @(!AppState.NavBarFixed ? "text-white" : "")"><a class="opacity-5 @(!AppState.NavBarFixed ? "text-white" : "")" href="javascript:;">Pages</a></li>
-				<li class="breadcrumb-item text-sm active @(!AppState.NavBarFixed ? "text-white" : "")" aria-current="page">Default</li>
+				<li class="breadcrumb-item text-sm @(!AppState.NavBarFixed ? "text-white" : "")"><a class="opacity-5 @(!AppState.NavBarFixed ? "text-white" : "")" href="javascript:;">@AppState.NavBarSelectedMainMenu</a></li>
+				<li class="breadcrumb-item text-sm active @(!AppState.NavBarFixed ? "text-white" : "")" aria-current="page">@AppState.NavBarSelectedMenu</li>
 			</ol>
-			<h6 class="font-weight-bolder mb-0 @(!AppState.NavBarFixed ? "text-white" : "")">Default</h6>
+			<h6 class="font-weight-bolder mb-0 @(!AppState.NavBarFixed ? "text-white" : "")">@AppState.NavBarSelectedMenu</h6>
 		</nav>
 		<div class="sidenav-toggler sidenav-toggler-inner d-xl-block d-none">
 			<a href="javascript:;" class="nav-link p-0 @(!AppState.NavBarFixed ? "text-white" : "")" @onclick=@(() => SideBarMinimize())>

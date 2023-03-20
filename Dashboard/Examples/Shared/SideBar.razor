@@ -384,6 +384,10 @@
 		ApplicationActiveClass = (activeMenuItem?.Name == "Applications") ? "active" : "";
 		EcommerceActiveClass = (activeMenuItem?.Name == "Ecommerce") ? "active" : "";
 		AuthenticationActiveClass = (activeMenuItem?.Name == "Authentication") ? "active" : "";
+
+		AppState.SetNavBarSelectedMainMenu(activeMenuItem.Name);
+		AppState.SetNavBarSelectedMenu(normalTitle);
+
 	}
 
 	protected override void OnInitialized()

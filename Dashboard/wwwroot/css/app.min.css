@@ -680,9 +680,6 @@ video {
 .table {
   display: table;
 }
-.grid {
-  display: grid;
-}
 .contents {
   display: contents;
 }
