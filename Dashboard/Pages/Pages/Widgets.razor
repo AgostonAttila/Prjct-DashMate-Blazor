@@ -449,57 +449,34 @@
 			plugins = new { legend = new { display = false } },
 			scales = new
 			{
-				x = new
+				y = new
 				{
 
 					ticks = new
 					{
-						display = true,
-						padding = 20,
-						color = "#ccc",
-						font = new
-						{
-
-							size = 11,
-							family = "Open Sans",
-							style = "normal",
-							lineHeight = 2
-						},
+						display = false
 					},
 					grid = new
-					{
-
-						borderDash = new[] { 5, 5 },
+					{						
 						drawBorder = false,
 						display = false,
 						drawOnChartArea = false,
 						drawTicks = false,
 					}
 				},
-				y = new
+				x = new
 				{
 
 					ticks = new
 					{
-						display = false,
-						padding = 10,
-						color = "#fbfbfb",
-						font = new
-						{
-
-							size = 11,
-							family = "Open Sans",
-							style = "normal",
-							lineHeight = 2
-						},
+						display = false						
 					},
 					grid = new
 					{
-
-						borderDash = new[] { 5, 5 },
+						
 						drawBorder = false,
-						display = true,
-						drawOnChartArea = true,
+						display = false,
+						drawOnChartArea = false,
 						drawTicks = false,
 					}
 				}
@@ -511,105 +488,14 @@
 			{
 					new
 					{
-					  label =  "Mobile apps",
-					  tension= 0.4,
-					  borderWidth= 3,
+					  label =  "Calories",
+					  tension= 0.5,
+					  borderWidth= 2,
 					  pointRadius= 0,
-					  borderColor= "#5e72e4",
-					  backgroundColor= "rgba(94, 114, 228, 0.1)",
+					  borderColor= "#252f40",
+					  backgroundColor= "rgba(37,47,64,0.2)",
 					  fill= true,
-					  data= new[] {50, 40, 300, 220, 500, 250, 400, 230, 500 },
-					  maxBarThickness= 6
-					}
-
-		},
-			labels = new[] { "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" }
-
-		},
-
-	};
-
-	object Widget2Config = new
-	{
-		Type = "line",
-		Options = new
-		{
-			responsive = true,
-			maintainAspectRatio = false,
-			interaction = new { mode = "index", intersect = false },
-			plugins = new { legend = new { display = false } },
-			scales = new
-			{
-				x = new
-				{
-
-					ticks = new
-					{
-						display = true,
-						padding = 20,
-						color = "#ccc",
-						font = new
-						{
-
-							size = 11,
-							family = "Open Sans",
-							style = "normal",
-							lineHeight = 2
-						},
-					},
-					grid = new
-					{
-
-						borderDash = new[] { 5, 5 },
-						drawBorder = false,
-						display = false,
-						drawOnChartArea = false,
-						drawTicks = false,
-					}
-				},
-				y = new
-				{
-
-					ticks = new
-					{
-						display = false,
-						padding = 10,
-						color = "#fbfbfb",
-						font = new
-						{
-
-							size = 11,
-							family = "Open Sans",
-							style = "normal",
-							lineHeight = 2
-						},
-					},
-					grid = new
-					{
-
-						borderDash = new[] { 5, 5 },
-						drawBorder = false,
-						display = true,
-						drawOnChartArea = true,
-						drawTicks = false,
-					}
-				}
-			}
-		},
-		data = new
-		{
-			datasets = new[]
-			{
-					new
-					{
-					  label =  "Mobile apps",
-					  tension= 0.4,
-					  borderWidth= 3,
-					  pointRadius= 0,
-					  borderColor= "#5e72e4",
-					  backgroundColor= "rgba(94, 114, 228, 0.1)",
-					  fill= true,
-					  data= new[] {50, 40, 300, 220, 500, 250, 400, 230, 500 },
+					  data= new[] {50, 45, 60, 60, 80, 65, 90, 80, 100 },
 					  maxBarThickness= 6
 					}
 
@@ -636,22 +522,10 @@
 
 					ticks = new
 					{
-						display = true,
-						padding = 20,
-						color = "#ccc",
-						font = new
-						{
-
-							size = 11,
-							family = "Open Sans",
-							style = "normal",
-							lineHeight = 2
-						},
+						display = false,
 					},
 					grid = new
-					{
-
-						borderDash = new[] { 5, 5 },
+					{					
 						drawBorder = false,
 						display = false,
 						drawOnChartArea = false,
@@ -663,25 +537,13 @@
 
 					ticks = new
 					{
-						display = false,
-						padding = 10,
-						color = "#fbfbfb",
-						font = new
-						{
-
-							size = 11,
-							family = "Open Sans",
-							style = "normal",
-							lineHeight = 2
-						},
+						display = false,												
 					},
 					grid = new
-					{
-
-						borderDash = new[] { 5, 5 },
+					{					
 						drawBorder = false,
-						display = true,
-						drawOnChartArea = true,
+						display = false,
+						drawOnChartArea = false,
 						drawTicks = false,
 					}
 				}
@@ -693,14 +555,84 @@
 			{
 					new
 					{
-					  label =  "Mobile apps",
-					  tension= 0.4,
-					  borderWidth= 3,
+					  label =  "Income",
+					  tension= 0.5,
+					  borderWidth= 2,
 					  pointRadius= 0,
+					  borderColor= "#252f40",
+					  backgroundColor= "rgba(37,47,64,0.2)",
+					  fill= true,
+					  data= new[] {50, 45, 60, 60, 80, 65, 90, 80, 100 },
+					  maxBarThickness= 6
+					}
+
+		},
+			labels = new[] { "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" }
+
+		},
+
+	};
+
+	object Widget2Config = new
+	{
+		Type = "line",
+		Options = new
+		{
+			responsive = true,
+			maintainAspectRatio = false,
+			interaction = new { mode = "index", intersect = false },
+			plugins = new { legend = new { display = false } },
+			scales = new
+			{
+				x = new
+				{
+
+					ticks = new
+					{
+						
+						padding = 20,
+						color = "#252f40",
+					},
+					grid = new
+					{					
+						drawBorder = false,
+						display = false,
+						drawOnChartArea = false,
+						drawTicks = false,
+					}
+				},
+				y = new
+				{
+
+					ticks = new
+					{
+						display = false,												
+					},
+					grid = new
+					{						
+						drawBorder = false,
+						display = false,
+						drawOnChartArea = false,
+						drawTicks = false,
+					}
+				}
+			}
+		},
+		data = new
+		{
+			datasets = new[]
+			{
+					new
+					{
+					  label =  "Tasks",
+					  tension= 0.3,
+					  borderWidth= 2,
+					  pointRadius= 2,
+					  pointBackgroundColor= "#5e72e4",
 					  borderColor= "#5e72e4",
 					  backgroundColor= "rgba(94, 114, 228, 0.1)",
 					  fill= true,
-					  data= new[] {50, 40, 300, 220, 500, 250, 400, 230, 500 },
+					  data= new[] {40, 45, 42, 41, 40, 43, 40, 42, 39 },
 					  maxBarThickness= 6
 					}
 

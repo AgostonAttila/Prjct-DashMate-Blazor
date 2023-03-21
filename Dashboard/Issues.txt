@@ -22,7 +22,5 @@ chat
 
 Chart:
 
-widget
 charts
-app-analitics
 ecom-overview
