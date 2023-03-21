@@ -1,4 +1,6 @@
-﻿@page "/general";
+﻿@page "/general"
+@using Dashboard.Components
+
 
 <div class="container-fluid py-4">
 	<div class="row mt-n2">
@@ -307,7 +309,8 @@
 				</div>
 				<div class="card-body mt-3 p-0">
 					<div class="chart">
-						<canvas id="chart-line" class="chart-canvas" height="100"></canvas>
+						<ChartJs Id="chart-line" Config="@configTask" Height="100" />
+						@*<canvas id="chart-line" class="chart-canvas" height="100"></canvas>*@
 					</div>
 				</div>
 			</div>
@@ -337,7 +340,8 @@
 						</div>
 						<div class="col-lg-7 my-auto">
 							<div class="chart ms-auto">
-								<canvas id="chart-bar" class="chart-canvas" height="150"></canvas>
+								<ChartJs Id="chart-bar" Config="@ConfigProjects" Height="150" />
+								@*<canvas id="chart-bar" class="chart-canvas" height="150"></canvas>*@
 							</div>
 						</div>
 					</div>
@@ -348,5 +352,148 @@
 </div>
 
 @code {
+
+	object configTask = new
+	{
+		Type = "line",
+		Options = new
+		{
+			responsive = true,
+			maintainAspectRatio = false,
+			interaction = new { mode = "index", intersect = false },
+			plugins = new { legend = new { display = false } },
+			scales = new
+			{
+				x = new
+				{
+
+					ticks = new
+					{
+						display = true,
+						padding = 10,
+						color = "#9ca2b7",
+					},
+					grid = new
+					{
+
+						borderDash = new[] { 5, 5 },
+						drawBorder = false,
+						display = true,
+						drawOnChartArea = true,
+						drawTicks = false,
+					}
+				},
+				y = new
+				{
+
+					ticks = new
+					{
+						display = true,
+						padding = 10,
+						color = "#9ca2b7",						
+					},
+					grid = new
+					{
+
+						borderDash = new[] { 5, 5 },
+						drawBorder = false,
+						display = false,
+						drawOnChartArea = true,
+						drawTicks = false,
+					}
+				}
+			}
+		},
+		data = new
+		{
+			datasets = new[]
+				{
+					new
+					{
+					  label =  "Tasks",
+					  tension= 0.3,
+					  borderWidth= 2,
+					  pointRadius= 0,
+					  pointBackgroundColor= "#2152ff",
+					  borderColor= "#2152ff",
+					  backgroundColor= "rgba(33,82,255,0.1)",
+					  fill= true,
+					  data= new[] {0, 45, 42, 41, 40, 43, 40, 42, 39 },
+					  maxBarThickness= 6
+					}
+
+		},
+			labels = new[] { "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" }
+
+		},
+
+	};
+
+	object ConfigProjects = new
+	{
+		Type = "doughnut",
+		Options = new
+		{
+			responsive = true,
+			maintainAspectRatio = false,
+			interaction = new { mode = "index", intersect = false },
+			plugins = new { legend = new { display = false } },
+			scales = new
+			{
+				y = new
+				{
+					grid = new
+					{
+						drawBorder = false,
+						display = false,
+						drawOnChartArea = false,
+						drawTicks = false,
+					},
+					ticks = new
+					{
+						display = false,
+					}
+				},
+				x = new
+				{
+					grid = new
+					{
+
+						drawBorder = false,
+						display = false,
+						drawOnChartArea = true,
+						drawTicks = false,
+					},
+					ticks = new
+					{
+						display = false,
+					}
+
+				}
+			}
+		},
+		data = new
+		{
+			datasets = new[]
+		{
+					new
+					{
+					  label =  "Projects",
+					  weight = 9,
+					  cutout = 50,
+					  tension = 0.9,
+					  pointRadius= 2,
+					  borderWidth= 2,
+					  backgroundColor= new []{"#2152ff", "#a8b8d8" },
+					  data= new[] {75, 25 },
+					  fill= false
+					}
+
+	},
+			labels = new[] { "Done", "In progress"}
+
+		},
+
+	};
 
 }

@@ -1,0 +1,26 @@
+﻿<div class="card">
+	<div class="card-body text-center">
+		<h1 class="text-gradient text-primary"> <span id="@Id" countto="@Value">@Value</span> <span class="text-lg ms-n1">@Unit</span></h1>
+		<h6 class="mb-0 font-weight-bolder">@MainText</h6>
+		<p class="opacity-8 mb-0 text-sm">@Text</p>
+	</div>
+</div>
+
+@code {
+
+	[Parameter]
+	public string? Id { get; set; }
+
+	[Parameter]
+	public int? Value { get; set; }
+
+	[Parameter]
+	public string? Unit { get; set; }
+
+	[Parameter]
+	public string? MainText { get; set; }
+
+	[Parameter]
+	public string? Text { get; set; }
+
+}

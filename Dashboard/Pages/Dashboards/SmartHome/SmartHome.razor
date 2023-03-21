@@ -1,4 +1,5 @@
 ﻿@page "/smarthome";
+@using Dashboard.Components
 @using Dashboard.Pages.Dashboards.SmartHome.Components
 
 <div class="container-fluid py-4">
@@ -14,18 +15,18 @@
 			</div>
 			<div class="row mt-4">
 				<div class="col-md-6">
-					<TemperatureCard />
+					<CardWithDynamicStartValues Id="status1" MainText="Living Room" Text="Temperature" Unit="°C" Value="21" />
 				</div>
 				<div class="col-md-6 mt-md-0 mt-4">
-					<HumidityCard />
+					<CardWithDynamicStartValues Id="status2" MainText="Outside" Text="Humidity" Unit="%" Value="44" />					
 				</div>
 			</div>
 			<div class="row mt-4">
 				<div class="col-md-6">
-					<WaterConsuptionCard />
+					<CardWithDynamicStartValues Id="status3" MainText="Water" Text="Consumption" Unit="m³" Value="87" />			
 				</div>
 				<div class="col-md-6 mt-md-0 mt-4">
-					<InternetCard />
+					<CardWithDynamicStartValues Id="status4" MainText="Internet" Text="All devices" Unit="GB" Value="417" />					
 				</div>
 			</div>
 		</div>

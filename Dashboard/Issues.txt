@@ -18,3 +18,11 @@ profile mind3 rossz
 new users footer
 sweetalerts
 chat
+
+
+Chart:
+
+widget
+charts
+app-analitics
+ecom-overview

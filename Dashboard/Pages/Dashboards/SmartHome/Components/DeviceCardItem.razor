@@ -1,0 +1,32 @@
+﻿<div class="card @Background h-100">
+	<div class="card-body">
+		<div class="d-flex mb-3">
+			<p class="mb-0 text-white">On</p>
+			<div class="form-check form-switch ms-auto">
+				<input class="form-check-input" checked type="checkbox" id="@Id">
+			</div>
+		</div>
+		@Svg
+		<p class="mt-2 mb-0 font-weight-bold text-white">@DeviceName</p>
+		<span class="text-xs text-white">@InfoText</span>
+	</div>
+</div>
+
+@code {
+
+	[Parameter]
+	public string? Id { get; set; }
+
+	[Parameter]
+	public string? DeviceName { get; set; }
+
+	[Parameter]
+	public string? InfoText { get; set; }
+
+	[Parameter]
+	public string? Background { get; set; }
+
+	[Parameter]
+	public object? Svg { get; set; }
+
+}
