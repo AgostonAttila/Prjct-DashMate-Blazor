@@ -1,34 +1,9 @@
-﻿<div class="col-sm-4">
-    <div class="card overflow-hidden">
-        <div class="card-header p-3 pb-0">
-            <p class="text-sm mb-0 text-capitalize font-weight-bold">Visitors</p>
-            <h5 class="font-weight-bolder mb-0">
-                5,927
-                <span class="text-success text-sm font-weight-bolder">+55%</span>
-            </h5>
-        </div>
-        <div class="card-body p-0">
-            <div class="chart">
-                <canvas id="chart-line-1" class="chart-canvas" height="100"></canvas>
-            </div>
-        </div>
-    </div>
+﻿@using Dashboard.Components
+<div class="col-sm-4">   
+	<SmallChartInCard Title="Visitors" Number="5,927" Percentage="+55" ChartId="chartline1" ChartConfig="configVisitor" />
 </div>
-<div class="col-sm-4 mt-sm-0 mt-4">
-    <div class="card overflow-hidden">
-        <div class="card-header p-3 pb-0">
-            <p class="text-sm mb-0 text-capitalize font-weight-bold">Income</p>
-            <h5 class="font-weight-bolder mb-0">
-                $130,832
-                <span class="text-success text-sm font-weight-bolder">+90%</span>
-            </h5>
-        </div>
-        <div class="card-body p-0">
-            <div class="chart">
-                <canvas id="chart-line-2" class="chart-canvas" height="100"></canvas>
-            </div>
-        </div>
-    </div>
+<div class="col-sm-4 mt-sm-0 mt-4"> 
+	<SmallChartInCard Title="Income" Number="$130,832" Percentage="+90" ChartId="chartline2" ChartConfig="configIncome"/>
 </div>
 <div class="col-sm-4 mt-sm-0 mt-4">
     <div class="card border h-100">
@@ -42,5 +17,152 @@
 </div>
 
 @code {
+
+	object configIncome =  new
+	{
+		Type = "line",
+		Options = new
+		{
+			responsive = true,
+			maintainAspectRatio = false,
+			interaction = new { mode = "index", intersect = false },
+			plugins = new { legend = new { display = false } },
+			scales = new
+			{
+				x = new
+				{
+					grid = new
+					{
+						drawBorder = false,
+						display = true,
+						drawOnChartArea = true,
+						drawTicks = false,
+						borderDash = new[] { 5, 5 },
+					},
+					ticks = new
+					{
+						display = true,
+						padding = 10,
+						color = "#9ca2b7"
+					}
+				},
+				y = new
+				{
+					grid = new
+					{
+
+						drawBorder = false,
+						display = false,
+						drawOnChartArea = true,
+						drawTicks = false,
+						borderDash = new[] { 5, 5 },
+					},
+					ticks = new
+					{
+						display = true,
+						padding = 10,
+						color = "#9ca2b7",
+					}
+
+				}
+			}
+		},
+		data = new
+		{
+			datasets = new[]
+			{
+					new
+					{
+					  label =  "Income",
+					  tension= 0.5,
+					  borderWidth= 2,
+					  pointRadius= 0,
+					  borderColor= "#5e72e4",
+					  backgroundColor= "rgba(94, 114, 228, 0.1)",
+					  fill= true,
+					  data= new[] {60, 80, 75, 90, 67, 100, 90, 110, 120 },
+					  maxBarThickness= 6
+					}
+
+	},
+			labels = new[] { "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" }
+
+		},
+
+	};
+
+
+	object configVisitor = new
+	{
+		Type = "line",
+		Options = new
+		{
+			responsive = true,
+			maintainAspectRatio = false,
+			interaction = new { mode = "index", intersect = false },
+			plugins = new { legend = new { display = false } },
+			scales = new
+			{
+				x = new
+				{
+					grid = new
+					{						
+						drawBorder = false,
+						display = true,
+						drawOnChartArea = true,
+						drawTicks = false,
+						borderDash = new[] { 5, 5 },
+					},
+					ticks = new
+					{
+						display = true,
+						padding = 10,
+						color = "#9ca2b7"						
+					}					
+				},
+				y = new
+				{
+					grid = new
+					{
+
+						drawBorder = false,											
+						display = false,
+						drawOnChartArea = true,
+						drawTicks = false,
+						borderDash = new[] { 5, 5 },
+					},
+					ticks = new
+					{
+						display = true,
+						padding = 10,
+						color = "#9ca2b7",						
+					}
+					
+				}
+			}
+		},
+		data = new
+		{
+			datasets = new[]
+			{
+					new
+					{
+					  label =  "Visitors",
+					  tension= 0.5,
+					  borderWidth= 2,
+					  pointRadius= 0,
+					  borderColor= "#5e72e4",
+					  backgroundColor= "rgba(94, 114, 228, 0.1)",
+					  fill= true,
+					  data= new[] {50, 45, 60, 60, 80, 65, 90, 80, 100 },
+					  maxBarThickness= 6
+					}
+
+	},
+			labels = new[] { "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" }
+
+		},
+
+	};
 
 }

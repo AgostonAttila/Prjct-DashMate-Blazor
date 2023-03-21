@@ -680,6 +680,9 @@ video {
 .table {
   display: table;
 }
+.grid {
+  display: grid;
+}
 .contents {
   display: contents;
 }
@@ -688,6 +691,9 @@ video {
 }
 .h-10 {
   height: 2.5rem;
+}
+.h-96 {
+  height: 24rem;
 }
 .h-auto {
   height: auto;

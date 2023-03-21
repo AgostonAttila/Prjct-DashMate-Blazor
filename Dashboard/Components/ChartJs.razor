@@ -1,0 +1,37 @@
+﻿@inject IJSRuntime JSRuntime
+
+<canvas id="@Id"></canvas>
+
+@code {
+	//public enum ChartType { Pie, Bar, Line }
+
+	[Parameter]
+	public string? Id { get; set; }
+
+	//[Parameter]
+	//public string? Type { get; set; }
+
+	//[Parameter]
+	//public string[]? Data { get; set; }
+
+	//[Parameter]
+	//public string[]? Labels { get; set; }
+
+	//[Parameter]
+	//public string[]? Options { get; set; }
+
+	[Parameter]
+	public object? Config { get; set; }
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		//var config = new
+		//{
+		//	type = Type,
+		//	options = Options,
+		//	data = Data,
+		//	labels = Labels
+		//};
+		await JSRuntime.InvokeVoidAsync("setup", Id, Config);
+	}
+}

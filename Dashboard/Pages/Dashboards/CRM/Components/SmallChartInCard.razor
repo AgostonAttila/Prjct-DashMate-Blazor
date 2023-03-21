@@ -1,0 +1,33 @@
+﻿@using Dashboard.Components
+<div class="card overflow-hidden">
+	<div class="card-header p-3 pb-0">
+		<p class="text-sm mb-0 text-capitalize font-weight-bold">@Title</p>
+		<h5 class="font-weight-bolder mb-0">
+			@Number
+			<span class="text-success text-sm font-weight-bolder">@Percentage%</span>
+		</h5>
+	</div>
+	<div class="card-body p-0">
+		<div class="chart">
+			<ChartJs Id="@ChartId" Config="@ChartConfig" />
+		@*	<canvas id="chart-line-1" class="chart-canvas" height="100"></canvas>*@
+		</div>
+	</div>
+</div>
+
+@code {
+	[Parameter]
+	public string? Title { get; set; }
+
+	[Parameter]
+	public string? Number { get; set; }
+
+	[Parameter]
+	public string? Percentage { get; set; }
+
+	[Parameter]
+	public string? ChartId { get; set; }
+
+	[Parameter]
+	public object? ChartConfig { get; set; }
+}
