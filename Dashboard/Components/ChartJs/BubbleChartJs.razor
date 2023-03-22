@@ -1,14 +1,21 @@
 ﻿<ChartJs Id="bubble" Config="Config" Height="140" />
 
 @code {
+
+	public class Value
+	{
+		public int x { get; set; }
+		public int y { get; set; }
+		public int r { get; set; }
+
+	}
+
 	object Config = new
 	{
 		Options = new
 		{
 			type = "bubble",
 			responsive = true,
-			maintainAspectRatio = false,
-			interaction = new { mode = "index", intersect = false },
 			plugins = new { legend = new { display = false } },
 			scales = new
 			{
@@ -36,7 +43,7 @@
 						drawBorder = false,
 						display = true,
 						drawOnChartArea = true,
-						drawTicks = true,
+						drawTicks = false,
 					}
 				},
 				y = new
@@ -71,22 +78,30 @@
 		data = new
 		{
 			datasets = new[]
-		{
+					{
 					new
-					{					
-					  label =  "Dataset 1",
-					//  data = new [] { {              x: 100,              y: 0,           r: 10     }, {                                                    x: 60,          y: 30,          r: 20       }, {                                                    x: 40,      y: 350,     r: 10   }, {                x: 80,                                                  y: 80,                                                  r: 10                                           }, {                                                    x: 20,                                                  y: 30,                                                  r: 15                                           }, {x: 0,                                                   y: 100,                                                 r: 5        }},
+					{
+						label = "Dataset 1",
+						data = new[] { new  { x = 100, y = 0, r = 10 },new  { x= 60,y= 30,r= 20 },new  {x= 40,y= 350,r= 10 } }
+						//data = new [,,] {   {  x= 100,  y= 0,  r= 10},  { x= 60,y= 30,r= 20 }, {x= 40,y= 350,r= 10 }, {x= 80,y= 80,r= 10}, { x= 20,y= 30,r= 15}, {x= 0,y= 100,r= 5} },
 
 					},
 					new
-					{					 
-					  label =  "Dataset 2",
-					 
+					{
+						label = "Dataset 2",
+						data =new[] { new  { x = 70, y = 40, r = 10 },new  { x= 30,y= 60,r= 20 },new  {x= 10,y= 300,r= 25 } }
+						//data = new [,,] { new object{   x = 100 , y = 0 , r = 10 } } }
 					}
-	},
+		},
 			labels = new[] { "0", "10", "20", "30", "40", "50", "60", "70", "80", "90" }
 
-		},
-
+		}
 	};
+
+
+	
+
+
 }
+
+
