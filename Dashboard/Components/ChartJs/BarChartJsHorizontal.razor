@@ -1,0 +1,73 @@
+﻿<ChartJs Id="bar-chart-horizontal" Config="@Config" Height="300" />
+@code {
+
+	object Config = new
+	{
+		Type = "bar",
+		Options = new
+		{
+			indexAxis = "y",
+			responsive = true,
+			maintainAspectRatio = false,
+			plugins = new { legend = new { display = false } },
+			scales = new
+			{
+				y = new
+				{
+					grid = new
+					{
+						drawBorder = false,
+						display = true,
+						drawOnChartArea = true,
+						drawTicks = false,
+						borderDash = new[] { 5, 5 }
+					},
+					ticks = new
+					{
+						display = true,
+						padding = 10,
+						color = "#9ca2b7"
+					}
+				},
+				x = new
+				{
+					grid = new
+					{
+
+						drawBorder = false,
+						display = false,
+						drawOnChartArea = true,
+						drawTicks = true,
+						borderDash = new[] { 5, 5 }
+					},
+					ticks = new
+					{
+						display = true,
+						padding = 10,
+						color = "#9ca2b7"
+					}
+				},
+			}
+		},
+		data = new
+		{
+			datasets = new[]
+				{
+					new
+					{
+					  label =  "Sales by age",
+					  weight= 5,
+					  borderWidth= 0,
+					  borderRadius= 4,
+					  backgroundColor = "#3A416F",
+					  data= new[] {15, 20, 12, 60, 20, 15 },
+					  fill= false
+					}
+
+	},
+			labels = new[] { "16-20", "21-25", "26-30", "31-36", "36-42", "42+" }
+
+		},
+
+	};
+}

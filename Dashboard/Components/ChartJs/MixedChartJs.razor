@@ -1,0 +1,115 @@
+﻿<ChartJs Id="mixed" Config="Config" Height="300" />
+
+@code {
+
+	object Config = new
+	{		
+		Options = new
+		{
+			responsive = true,
+			maintainAspectRatio = false,
+			interaction = new { mode = "index", intersect = false },
+			plugins = new { legend = new { display = false } },
+			scales = new
+			{
+				x = new
+				{
+
+					ticks = new
+					{
+						display = true,
+						padding = 10,
+						color = "#b2b9bf",
+						font = new
+						{
+
+							size = 11,
+							family = "Open Sans",
+							style = "normal",
+							lineHeight = 2
+						},
+					},
+					grid = new
+					{
+
+						borderDash = new[] { 5, 5 },
+						drawBorder = false,
+						display = true,
+						drawOnChartArea = true,
+						drawTicks = true,
+					}
+				},
+				y = new
+				{
+
+					ticks = new
+					{
+						display = true,
+						padding = 10,
+						color = "#b2b9bf",
+						font = new
+						{
+
+							size = 11,
+							family = "Open Sans",
+							style = "normal",
+							lineHeight = 2
+						},
+					},
+					grid = new
+					{
+
+						borderDash = new[] { 5, 5 },
+						drawBorder = false,
+						display = true,
+						drawOnChartArea = true,
+						drawTicks = false,
+					}
+				}
+			}
+		},
+		data = new
+		{
+			datasets = new[]
+	{
+					new
+					{
+					  type = "bar",
+					  label =  "Organic Search",
+					  weight = 5,
+					  tension= 0.4,
+					  borderWidth= 4,
+					  borderRadius = 2,
+					  pointRadius= 0,
+					  borderColor= "#3A416F",
+					  pointBackgroundColor= "#3A416F",
+					  backgroundColor = "3A416F",
+					  borderskipped =true,
+					  fill= true,
+					  data= new[] {50, 40, 300, 220, 500, 250, 400, 230, 500 },
+					  maxBarThickness= 10
+					},
+					new
+					{
+					  type = "line",
+					  label =  "Referral",
+					  weight = 1,
+					  tension= 0.4,
+					  borderWidth= 3,
+						borderRadius = 2,
+					  pointRadius= 0,
+					  borderColor= "#5e72e4",
+					  pointBackgroundColor= "#5e72e4",
+					  backgroundColor = "rgba(72,72,176,0.02)",
+					  borderskipped =false,
+					  fill= true,
+					  data= new[] {30, 90, 40, 140, 290, 290, 340, 230, 400 },
+					  maxBarThickness= 6
+					}			
+	},
+			labels = new[] { "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" }
+
+		},
+
+	};
+}
