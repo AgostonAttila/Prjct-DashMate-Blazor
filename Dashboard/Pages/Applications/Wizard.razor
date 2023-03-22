@@ -10,13 +10,13 @@
 				<div class="row mt-5">
 					<div class="col-12 col-lg-8 mx-auto my-5">
 						<div class="multisteps-form__progress">
-							<button class="multisteps-form__progress-btn js-active" type="button" title="User Info">
+							<button class="multisteps-form__progress-btn js-active" type="button" title="User Info" @onclick=@(() => ChangeTab("about"))>
 								<span>About</span>
 							</button>
-							<button class="multisteps-form__progress-btn" type="button" title="Address">
+							<button class="multisteps-form__progress-btn @accountActiveClassMenu" type="button" title="Address" @onclick=@(() => ChangeTab("account"))>
 								<span>Account</span>
 							</button>
-							<button class="multisteps-form__progress-btn" type="button" title="Order Info">
+							<button class="multisteps-form__progress-btn @addressActiveClassMenu" type="button" title="Order Info" @onclick=@(() => ChangeTab("address"))>
 								<span>Address</span>
 							</button>
 						</div>
@@ -27,7 +27,7 @@
 					<div class="col-12 col-lg-8 m-auto">
 						<form class="multisteps-form__form">
 							<!--single form panel-->
-							<div class="card multisteps-form__panel p-3 border-radius-xl bg-white js-active" data-animation="FadeIn">
+							<div class="card multisteps-form__panel p-3 border-radius-xl bg-white @aboutActiveClass" data-animation="FadeIn">
 								<div class="row text-center">
 									<div class="col-10 mx-auto">
 										<h5 class="font-weight-normal">Let's start with the basic information</h5>
@@ -54,12 +54,12 @@
 										</div>
 									</div>
 									<div class="button-row d-flex mt-4">
-										<button class="btn bg-gradient-dark ms-auto mb-0 js-btn-next" type="button" title="Next">Next</button>
+										<button class="btn bg-gradient-dark ms-auto mb-0 js-btn-next" type="button" title="Next" @onclick=@(() => ChangeTab("account"))>Next</button>
 									</div>
 								</div>
 							</div>
 							<!--single form panel-->
-							<div class="card multisteps-form__panel p-3 border-radius-xl bg-white" data-animation="FadeIn">
+							<div class="card multisteps-form__panel p-3 border-radius-xl bg-white @accountActiveClass" data-animation="FadeIn">
 								<div class="row text-center">
 									<div class="col-10 mx-auto">
 										<h5 class="font-weight-normal">What are you doing? (checkboxes)</h5>
@@ -131,13 +131,13 @@
 										</div>
 									</div>
 									<div class="button-row d-flex mt-4">
-										<button class="btn bg-gradient-light mb-0 js-btn-prev" type="button" title="Prev">Prev</button>
-										<button class="btn bg-gradient-dark ms-auto mb-0 js-btn-next" type="button" title="Next">Next</button>
+										<button class="btn bg-gradient-light mb-0 js-btn-prev" type="button" title="Prev" @onclick=@(() => ChangeTab("about"))>Prev</button>
+										<button class="btn bg-gradient-dark ms-auto mb-0 js-btn-next" type="button" title="Next" @onclick=@(() => ChangeTab("address"))>Next</button>
 									</div>
 								</div>
 							</div>
 							<!--single form panel-->
-							<div class="card multisteps-form__panel p-3 border-radius-xl bg-white" data-animation="FadeIn">
+							<div class="card multisteps-form__panel p-3 border-radius-xl bg-white @addressActiveClass" data-animation="FadeIn">
 								<div class="row text-center">
 									<div class="col-10 mx-auto">
 										<h5 class="font-weight-normal">Are you living in a nice area?</h5>
@@ -172,7 +172,7 @@
 									</div>
 									<div class="row">
 										<div class="button-row d-flex mt-4 col-12">
-											<button class="btn bg-gradient-light mb-0 js-btn-prev" type="button" title="Prev">Prev</button>
+											<button class="btn bg-gradient-light mb-0 js-btn-prev" type="button" title="Prev" @onclick=@(() => ChangeTab("account"))>Prev</button>
 											<button class="btn bg-gradient-dark ms-auto mb-0" type="button" title="Send">Send</button>
 										</div>
 									</div>
@@ -187,5 +187,45 @@
 </div>
 
 @code {
+
+	bool isAboutActive = true;
+	bool isAccountActive = false;
+	bool isAddressActive = false;
+
+
+	string aboutActiveClass = "js-active";
+	string accountActiveClass = "";
+	string addressActiveClass = "";
+
+
+	string accountActiveClassMenu = "";
+	string addressActiveClassMenu = "";
+
+
+	async Task ChangeTab(string tab)
+	{
+		bool isAboutActive = tab == "about" ? true : false;
+		bool isAccountActive = tab == "account" ? true : false;
+		bool isAddressActive = tab == "address" ? true : false;
+	
+
+		aboutActiveClass = (isAboutActive) ? "js-active" : "";
+		accountActiveClass = (isAccountActive) ? "js-active" : "";
+		addressActiveClass = (isAddressActive) ? "js-active" : "";
+		
+
+		accountActiveClassMenu = "";
+		addressActiveClassMenu = "";
+		
+
+		accountActiveClassMenu = (isAccountActive) ? "js-active" : "";
+
+		if (isAddressActive)
+		{
+			accountActiveClassMenu = "js-active";
+			addressActiveClassMenu = "js-active";
+		}
+		
+	}
 
 }
