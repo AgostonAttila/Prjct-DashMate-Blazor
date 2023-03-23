@@ -1,4 +1,6 @@
-﻿    <div class="card shadow-lg">
+﻿@inject IJSRuntime JSRuntime
+
+    <div class="card shadow-lg">
         <div class="card-header bg-transparent">
             <div class="row">
                 <div class="col-lg-4 col-md-6 col-12">
@@ -94,4 +96,13 @@
 
 @code {
 
+
+    //protected override async Task OnAfterRenderAsync(bool firstRender)
+    //{
+
+    //    await JSRuntime.InvokeVoidAsync("setup","id",Config);
+
+    //}
+
+    //object Config = new { };
 }

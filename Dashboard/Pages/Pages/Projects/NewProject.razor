@@ -1,7 +1,8 @@
 ﻿@page "/newproject";
+@inject IJSRuntime JSRuntime
 
 <div class="container-fluid py-4">
-	<div class="row">
+	<div class="row">	
 		<div class="col-lg-9 col-12 mx-auto">
 			<div class="card card-body mt-4">
 				<h6 class="mb-0">New Project</h6>
@@ -68,4 +69,15 @@
 
 @code {
 
+
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		
+
+
+		string jsCode = "                   if (document.getElementById('editor')) {                var quill = new Quill('#editor', {                    theme: 'snow'         });            }            if (document.getElementById('choices-multiple-remove-button')) {                var element = document.getElementById('choices-multiple-remove-button');                const example = new Choices(element, {                    removeItemButton: true                });                example.setChoices(                    [{                        value: 'One',                        label: 'Label One',                        disabled: true                    },                    {                        value: 'Two',                        label: 'Label Two',                        selected: true                    },                    {                        value: 'Three',                        label: 'Label Three'                    },                    ],                    'value',                    'label',                    false,                );            }            if (document.querySelector('.datetimepicker')) {                flatpickr('.datetimepicker', {                    allowInput: true                });         }            Dropzone.autoDiscover = false;            var drop = document.getElementById('dropzone')            var myDropzone = new Dropzone(drop, {                url: '/file/post',                addRemoveLinks: true            });           ";
+		await JSRuntime.InvokeAsync<string>(jsCode);
+
+	}
 }

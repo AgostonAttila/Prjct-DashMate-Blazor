@@ -8,17 +8,15 @@ Security
 Settings
 
 üres:
-AllProject
 PricingPage
 
 
-notifications újratölt
-editproduct el van csúszva
-profile mind3 rossz
+--------------------------------
+kanban,sweet alerts,calendar map,datatables,notifications
+
+Sato profile 
+Automotive slider
+Security dropdown scroller
+New project dropdownok
 new users footer
-sweetalerts
-chat
-
-
-Sato profile ,new product
 

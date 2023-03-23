@@ -1,4 +1,5 @@
 ﻿@page "/settings";
+@inject NavigationManager NavigationManager;
 
 <div class="container-fluid mt-6">
 	<div class="row align-items-center">
@@ -36,52 +37,52 @@
 			<div class="card position-sticky top-1">
 				<ul class="nav flex-column bg-white border-radius-lg p-3">
 					<li class="nav-item">
-						<a class="nav-link text-body d-flex align-items-center" data-scroll="" href="#profile">
+						<NavLink class="nav-link text-body d-flex align-items-center" data-scroll="" href="settings#profile" @onclick=@(() => NavLinkOnClick("profile"))>
 							<i class="ni ni-spaceship me-2 text-dark opacity-6"></i>
 							<span class="text-sm">Profile</span>
-						</a>
+						</NavLink>
 					</li>
 					<li class="nav-item pt-2">
-						<a class="nav-link text-body d-flex align-items-center" data-scroll="" href="#basic-info">
+						<NavLink class="nav-link text-body d-flex align-items-center" data-scroll="" href="settings#basic-info">
 							<i class="ni ni-books me-2 text-dark opacity-6"></i>
 							<span class="text-sm">Basic Info</span>
-						</a>
+						</NavLink>
 					</li>
 					<li class="nav-item pt-2">
-						<a class="nav-link text-body d-flex align-items-center" data-scroll="" href="#password">
+						<NavLink class="nav-link text-body d-flex align-items-center" data-scroll="" href="settings#password">
 							<i class="ni ni-atom me-2 text-dark opacity-6"></i>
 							<span class="text-sm">Change Password</span>
-						</a>
+						</NavLink>
 					</li>
 					<li class="nav-item pt-2">
-						<a class="nav-link text-body d-flex align-items-center" data-scroll="" href="#2fa">
+						<NavLink class="nav-link text-body d-flex align-items-center" data-scroll="" href="settings#2fa">
 							<i class="ni ni-ui-04 me-2 text-dark opacity-6"></i>
 							<span class="text-sm">2FA</span>
-						</a>
+						</NavLink>
 					</li>
 					<li class="nav-item pt-2">
-						<a class="nav-link text-body d-flex align-items-center" data-scroll="" href="#accounts">
+						<NavLink class="nav-link text-body d-flex align-items-center" data-scroll="" href="settings#accounts">
 							<i class="ni ni-badge me-2 text-dark opacity-6"></i>
 							<span class="text-sm">Accounts</span>
-						</a>
+						</NavLink>
 					</li>
 					<li class="nav-item pt-2">
-						<a class="nav-link text-body d-flex align-items-center" data-scroll="" href="#notifications">
+						<NavLink class="nav-link text-body d-flex align-items-center" data-scroll="" href="settings#notifications">
 							<i class="ni ni-bell-55 me-2 text-dark opacity-6"></i>
 							<span class="text-sm">Notifications</span>
-						</a>
+						</NavLink>
 					</li>
 					<li class="nav-item pt-2">
-						<a class="nav-link text-body d-flex align-items-center" data-scroll="" href="#sessions">
+						<NavLink class="nav-link text-body d-flex align-items-center" data-scroll="" href="settings#sessions">
 							<i class="ni ni-watch-time me-2 text-dark opacity-6"></i>
 							<span class="text-sm">Sessions</span>
-						</a>
+						</NavLink>
 					</li>
 					<li class="nav-item pt-2">
-						<a class="nav-link text-body d-flex align-items-center" data-scroll="" href="#delete">
+						<NavLink class="nav-link text-body d-flex align-items-center" data-scroll="" href="settings#delete" @onclick=@(() => NavLinkOnClick("delete"))>
 							<i class="ni ni-settings-gear-65 me-2 text-dark opacity-6"></i>
 							<span class="text-sm">Delete Account</span>
-						</a>
+						</NavLink>
 					</li>
 				</ul>
 			</div>
@@ -549,5 +550,9 @@
 </div>
 
 @code {
+	async Task NavLinkOnClick(string section)
+	{
+		NavigationManager.NavigateTo("default");
 
+	}
 }
