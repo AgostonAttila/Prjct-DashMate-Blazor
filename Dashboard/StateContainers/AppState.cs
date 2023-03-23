@@ -4,12 +4,12 @@
 	{
 
 		public bool IsShowThemeSelector { get; private set; }
-		
-		
+
+
 		public string? SideBarColor { get; private set; }
 		public string? SideBarType { get; private set; }
 		public bool SideBarMinimize { get; private set; }
-		public string SideBarLogo { get;  set; } = "../../assets/img/logo-ct-dark.png" ;
+		public string SideBarLogo { get; set; } = "../../assets/img/logo-ct-dark.png";
 
 		public bool NavBarFixed { get; private set; }
 		public bool DarkMode { get; private set; }
@@ -52,7 +52,8 @@
 		public void SetDarkMode()
 		{
 			DarkMode = !DarkMode;
-			if (DarkMode) SideBarType = "bg-default";
+			if (DarkMode) SetSideBarType("bg-default");
+			else SetSideBarType("bg-white");
 
 			NotifyStateChanged();
 		}
