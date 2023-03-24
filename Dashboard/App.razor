@@ -1,8 +1,11 @@
-﻿@using Dashboard.Pages.Authentication.Error
-@using Microsoft.AspNetCore.Authorization;
+﻿@using Microsoft.AspNetCore.Authorization;
+@using Microsoft.AspNetCore.Components.Authorization
+
+@using Dashboard.Pages.Authentication.Error
+@using Dashboard.Pages.Authentication.SingIn
 
 
-	<Router AppAssembly="@typeof(App).Assembly">
+@*	<Router AppAssembly="@typeof(App).Assembly">
 		<Found Context="routeData">			
 			<RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />				
 			<FocusOnNavigate RouteData="@routeData" Selector="h1" />
@@ -13,18 +16,18 @@
 				<Error404 />
 			</LayoutView>
 		</NotFound>
-	</Router>
+	</Router>*@
 
 
 
-@*<CascadingAuthenticationState>
+<CascadingAuthenticationState>
 	<Router AppAssembly="@typeof(App).Assembly">
 		<Found Context="routeData">
-			<AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
-				<NotAuthorized>
-					<h3>Whhops! youre not allowed to see this page</h3>
+			<AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(LayoutFullScreen)">
+				<NotAuthorized>					
+						<SingInBasic/>					
 				</NotAuthorized>
-			</AuthorizeRouteView
+			</AuthorizeRouteView>
 			<FocusOnNavigate RouteData="@routeData" Selector="h1" />
 		</Found>
 		<NotFound>
@@ -34,4 +37,4 @@
 			</LayoutView>
 		</NotFound>
 	</Router>
-</CascadingAuthenticationState>*@
+</CascadingAuthenticationState>

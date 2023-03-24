@@ -1,6 +1,9 @@
 ﻿@page "/"
 @page "/default"
+@*@attribute [Authorize]*@
+
 @using Dashboard.Pages.Dashboards.Default.Components
+@using Microsoft.AspNetCore.Authorization;
 @inject IJSRuntime JS
 
 <div class="container-fluid py-4">
