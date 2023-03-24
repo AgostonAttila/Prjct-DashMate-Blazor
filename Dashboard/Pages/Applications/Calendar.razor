@@ -1,4 +1,5 @@
 ﻿@page "/calendar";
+@using Dashboard.Components.ChartJs
 
 <div class="container-fluid py-4">
 	<div class="row mb-lg-7">
@@ -144,7 +145,8 @@
 						</div>
 						<div class="card-body p-0">
 							<div class="chart">
-								<canvas id="chart-line-1" class="chart-canvas" height="100"></canvas>
+								<ChartJs Id="chart-widgets-1" Config="@Widget1Config" Height="100" />
+								@*<canvas id="chart-line-1" class="chart-canvas" height="100"></canvas>*@
 							</div>
 						</div>
 					</div>
@@ -155,5 +157,73 @@
 </div>
 
 @code {
+
+	object Widget1Config = new
+	{
+		Type = "line",
+		Options = new
+		{
+			responsive = true,
+			maintainAspectRatio = false,
+			interaction = new { mode = "index", intersect = false },
+			plugins = new { legend = new { display = false } },
+			scales = new
+			{
+				y = new
+				{
+
+					ticks = new
+					{
+						display = false
+					},
+					grid = new
+					{
+						drawBorder = false,
+						display = false,
+						drawOnChartArea = false,
+						drawTicks = false,
+					}
+				},
+				x = new
+				{
+
+					ticks = new
+					{
+						display = false
+					},
+					grid = new
+					{
+
+						drawBorder = false,
+						display = false,
+						drawOnChartArea = false,
+						drawTicks = false,
+					}
+				}
+			}
+		},
+		data = new
+		{
+			datasets = new[]
+			{
+					new
+					{
+					  label =  "Visitors",
+					  tension= 0.5,
+					  borderWidth= 2,
+					  pointRadius= 0,
+					  borderColor= "#fff",
+					  backgroundColor= "rgba(255,255,255,0.3)",
+					  fill= true,
+					  data= new[] {50, 45, 60, 60, 80, 65, 90, 80, 100 },
+					  maxBarThickness= 6
+					}
+
+	},
+			labels = new[] { "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" }
+
+		},
+
+	};
 
 }
