@@ -1,14 +1,37 @@
 ﻿@using Dashboard.Pages.Authentication.Error
+@using Microsoft.AspNetCore.Authorization;
 
-<Router AppAssembly="@typeof(App).Assembly">
-    <Found Context="routeData">
-        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
-        <FocusOnNavigate RouteData="@routeData" Selector="h1" />
-    </Found>
-    <NotFound>
-        <PageTitle>Not found</PageTitle>
-        <LayoutView Layout="@typeof(LayoutFullScreen)">
-           <Error404/>
-        </LayoutView>
-    </NotFound>
-</Router>
+
+	<Router AppAssembly="@typeof(App).Assembly">
+		<Found Context="routeData">			
+			<RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />				
+			<FocusOnNavigate RouteData="@routeData" Selector="h1" />
+		</Found>
+		<NotFound>
+			<PageTitle>Not found</PageTitle>
+			<LayoutView Layout="@typeof(LayoutFullScreen)">
+				<Error404 />
+			</LayoutView>
+		</NotFound>
+	</Router>
+
+
+
+@*<CascadingAuthenticationState>
+	<Router AppAssembly="@typeof(App).Assembly">
+		<Found Context="routeData">
+			<AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+				<NotAuthorized>
+					<h3>Whhops! youre not allowed to see this page</h3>
+				</NotAuthorized>
+			</AuthorizeRouteView
+			<FocusOnNavigate RouteData="@routeData" Selector="h1" />
+		</Found>
+		<NotFound>
+			<PageTitle>Not found</PageTitle>
+			<LayoutView Layout="@typeof(LayoutFullScreen)">
+				<Error404 />
+			</LayoutView>
+		</NotFound>
+	</Router>
+</CascadingAuthenticationState>*@
