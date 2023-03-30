@@ -21,12 +21,6 @@ namespace Dashboard.Models
 
 	}
 
-
-	public class MainMenuItem
-	{	
-		public string Name { get; set; }
-		public List<MenuItem> MenuItemList { get; set; } = new List<MenuItem>();
-	}
 }
 
 
