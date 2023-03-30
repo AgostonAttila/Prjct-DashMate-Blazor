@@ -1,7 +1,124 @@
 ﻿@page "/syncfusion";
+@using Dashboard.Pages.Pages.SyncfusionComponents
 
 
 <div class="container-fluid py-4">
+	<div class="row">
+		<div class="col-md-6">
+			<h5 class="mb-0 text-white">Charts</h5>
+			<p class="text-sm mb-0 text-white">
+				SyncFusion
+			</p>
+		</div>
+	</div>
+	<div class="row mt-4">
+		<div class="col-md-6">
+			<div class="card z-index-2">
+				<div class="card-header p-3 pb-0">
+					<h6>Line chart</h6>
+				</div>
+				<div class="card-body p-3">
+					<CalendarSyncfusion/>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6 mt-md-0 mt-4">
+			<div class="card z-index-2">
+				<div class="card-header p-3 pb-0">
+					<h6>Line chart with gradient</h6>
+				</div>
+				<div class="card-body p-3">
+					<div class="chart">
+						<DataGridSyncfusion />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row mt-4">
+		<div class="col-md-6">
+			<div class="card z-index-2">
+				<div class="card-header p-3 pb-0">
+					<h6>Bar chart</h6>
+				</div>
+				<div class="card-body p-3">
+					<div class="chart">
+						<GantSyncfusion />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row mt-4">
+		<div class="col-md-6">
+			<div class="card z-index-2">
+				<div class="card-header p-3 pb-0">
+					<h6>Bar chart</h6>
+				</div>
+				<div class="card-body p-3">
+					<div class="chart">
+						<KanbanSyncfusion />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row mt-4">
+		<div class="col-md-6">
+			<div class="card z-index-2">
+				<div class="card-header p-3 pb-0">
+					<h6>Bar chart</h6>
+				</div>
+				<div class="card-body p-3">
+					<div class="chart">
+						<PivotSyncfusion />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row mt-4">
+		<div class="col-md-6">
+			<div class="card z-index-2">
+				<div class="card-header p-3 pb-0">
+					<h6>Bar chart</h6>
+				</div>
+				<div class="card-body p-3">
+					<div class="chart">
+						<PivotSyncfusion />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row mt-4">
+		<div class="col-md-6">
+			<div class="card z-index-2">
+				<div class="card-header p-3 pb-0">
+					<h6>Bar chart</h6>
+				</div>
+				<div class="card-body p-3">
+					<div class="chart">
+						<SyncFusionScheduler />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row mt-4">
+		<div class="col-md-6">
+			<div class="card z-index-2">
+				<div class="card-header p-3 pb-0">
+					<h6>Bar chart</h6>
+				</div>
+				<div class="card-body p-3">
+					<div class="chart">
+						<TreeGridSyncfusion />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 @code {

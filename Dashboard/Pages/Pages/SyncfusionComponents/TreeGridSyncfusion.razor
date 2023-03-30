@@ -1,0 +1,56 @@
+﻿@*
+
+<SfTreeGrid DataSource="@TreeData" IdMapping="TaskID" ParentIdMapping="ParentID" TreeColumnIndex="1">
+    <TreeGridColumns>
+        <TreeGridColumn Field="TaskID" HeaderText="Task ID" Width="80" TextAlign="TextAlign.Right"></TreeGridColumn>
+        <TreeGridColumn Field="TaskName" HeaderText="Task Name" Width="145"></TreeGridColumn>
+        <TreeGridColumn Field="Duration" HeaderText="Duration" Width="100" TextAlign="TextAlign.Right"></TreeGridColumn>
+        <TreeGridColumn Field="Progress" HeaderText="Progress" Width="100"></TreeGridColumn>
+    </TreeGridColumns>
+</SfTreeGrid>
+
+@code {
+    public List<SelfReferenceData> TreeData { get; set; }
+
+    protected override void OnInitialized()
+    {
+        this.TreeData = SelfReferenceData.GetTree().Take(30).ToList();
+    }
+
+    public class SelfReferenceData
+    {
+        public static List<SelfReferenceData> tree = new List<SelfReferenceData>();
+        public int TaskID { get; set; }
+        public string TaskName { get; set; }
+        public String Progress { get; set; }
+        public int Duration { get; set; }
+        public int? ParentID { get; set; }
+        public SelfReferenceData() { }
+        public static List<SelfReferenceData> GetTree()
+        {
+            if (tree.Count == 0)
+            {
+                int root = -1;
+                for (var t = 1; t <= 10000; t++)
+                {
+                    Random ran = new Random();
+                    string progr = (ran.Next() % 3) == 0 ? "Started" : (ran.Next() % 2) == 0 ? "Open" : "In Progress";
+                    root++;
+                    int rootItem = tree.Count + root + 1;
+                    tree.Add(new SelfReferenceData() { TaskID = rootItem, TaskName = "Parent task " + rootItem.ToString(), Progress = progr, Duration = ran.Next(1, 50) });
+                    int parent = tree.Count;
+                    for (var c = 0; c < 2; c++)
+                    {
+                        root++;
+                        progr = (ran.Next() % 3) == 0 ? "In Progress" : (ran.Next() % 2) == 0 ? "Open" : "Validated";
+                        int iD = tree.Count + root + 1;
+                        tree.Add(new SelfReferenceData() { TaskID = iD, TaskName = "Child task " + iD.ToString(), ParentID = rootItem, Progress = progr, Duration = ran.Next(1, 50) });
+                    }
+                }
+            }
+            return tree;
+        }
+    }
+}
+
+*@

@@ -4,7 +4,367 @@
 @using Dashboard.StateContainers;
 @using Dashboard.Models;
 
-<aside  class="sidenav @(AppState.SideBarType != "bg-default" ? "bg-white" : "bg-default")  navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main" data-color="@AppState.SideBarColor">
+
+<aside class="sidenav @(AppState.SideBarType != "bg-default" ? "bg-white" : "bg-default")  navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main" data-color="@AppState.SideBarColor">
+	<div class="sidenav-header">
+		<i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+		<a class="navbar-brand m-0" href="/default" target="_blank">
+			<img src="@AppState.SideBarLogo" class="navbar-brand-img h-100" alt="main_logo">
+			<span class="ms-1 font-weight-bold">@sideBarTitle</span>
+		</a>
+	</div>
+	<hr class="horizontal dark mt-0">
+	<div class="collapse navbar-collapse  w-auto h-auto" id="sidenav-collapse-main">
+		<ul class="navbar-nav">
+			@foreach (SideBarMenuItem sideBarMenuItem in sideBarMenuItemList)
+			{
+				@if (sideBarMenuItem.Type == "Break")
+				{
+					<li class="nav-item mt-3">
+						<h6 class="ps-4  ms-2 text-uppercase text-xs font-weight-bolder opacity-6">@sideBarMenuItem.Name.ToUpper()</h6>
+					</li>
+				}
+				else
+				{
+					<li class="nav-item">
+						<a data-bs-toggle="collapse" href="#@sideBarMenuItem.Id" class="nav-link @sideBarMenuItem.Css" aria-controls="@sideBarMenuItem.Id" role="button" aria-expanded="false">
+							<div class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
+								<i class="@sideBarMenuItem.Icon text-sm opacity-10"></i>
+							</div>
+							<span class="nav-link-text ms-1">@sideBarMenuItem.Name</span>
+						</a>
+						<div class="collapse " id="@sideBarMenuItem.Id">
+							<ul class="nav ms-4">
+								@foreach (MenuItem mainMenuItem in sideBarMenuItem.MainMenuItemList)
+								{
+
+									@if (@mainMenuItem.MenuItemList.Count > 0)
+									{
+										<li class="nav-item ">
+											<NavLink class="nav-link " data-bs-toggle="collapse" aria-expanded="false" href="@("#"+mainMenuItem.Id)">
+												<span class="sidenav-mini-icon"> @mainMenuItem.Title?.First().ToString().ToUpper() </span>
+												<span class="sidenav-normal"> @mainMenuItem.Title <b class="caret"></b></span>
+											</NavLink>
+											<div class="collapse" id="@mainMenuItem.Id">
+												<ul class="nav nav-sm flex-column">
+													@foreach (MenuItem menuItem in @mainMenuItem.MenuItemList)
+													{
+														<li class="nav-item" @onclick=@(() => NavLinkOnClick(@menuItem.Title))>
+															<NavLink class="nav-link " href="@menuItem.Link">
+																<span class="sidenav-mini-icon text-xs"> @menuItem.Title?.First().ToString().ToUpper() </span>
+																<span class="sidenav-normal"> @menuItem.Title </span>
+															</NavLink>
+														</li>
+													}
+												</ul>
+											</div>
+										</li>
+									}
+									else
+									{
+										<li class="nav-item" @onclick=@(() => NavLinkOnClick(@mainMenuItem.Title))>
+											<NavLink class="nav-link" href="@mainMenuItem.Link">
+												<span class="sidenav-mini-icon"> @mainMenuItem.MiniTitle </span>
+												<span class="sidenav-normal"> @mainMenuItem.Title </span>
+											</NavLink>
+										</li>
+									}
+								}
+
+							</ul>
+						</div>
+					</li>
+
+				}
+			}
+		</ul>
+	</div>
+	<div class="sidenav-footer mx-3 my-3">
+		<div class="card card-plain shadow-none" id="sidenavCard">
+			Footer vmi
+			<img class="w-60 mx-auto" src="../../assets/img/illustrations/icon-documentation.svg" alt="sidebar_illustration">
+			<div class="card-body text-center p-3 w-100 pt-0">
+				<div class="docs-info">
+					<h6 class="mb-0">Need help?</h6>
+					<p class="text-xs font-weight-bold mb-0">Please check our docs</p>
+				</div>
+			</div>
+		</div>
+		@*<a href="https://www.creative-tim.com/learning-lab/bootstrap/overview/argon-dashboard" target="_blank" class="btn btn-dark btn-sm w-100 mb-3">Documentation</a>*@
+	</div>
+</aside>
+
+@code {
+
+	string sideBarTitle = "DashMate - Blazor";
+
+	static string DashboardActiveClass = "";
+	static string PagesActiveClass = "";
+	static string ApplicationActiveClass = "";
+	static string EcommerceActiveClass = "";
+	static string AuthenticationActiveClass = "";
+
+
+
+	async Task NavLinkOnClick(string normalTitle)
+	{
+		MainMenuItem activeMenuItem = mainMenuItemList.Where(p => p.MenuItemList.Any(o => o.Title == normalTitle)).FirstOrDefault();
+
+		DashboardActiveClass = (activeMenuItem?.Name == "Dashboards") ? "active" : "";
+		PagesActiveClass = (activeMenuItem?.Name == "Pages") ? "active" : "";
+		ApplicationActiveClass = (activeMenuItem?.Name == "Applications") ? "active" : "";
+		EcommerceActiveClass = (activeMenuItem?.Name == "Ecommerce") ? "active" : "";
+		AuthenticationActiveClass = (activeMenuItem?.Name == "Authentication") ? "active" : "";
+
+		AppState.SetNavBarSelectedMainMenu(activeMenuItem.Name);
+		AppState.SetNavBarSelectedMenu(normalTitle);
+
+	}
+
+	protected override void OnInitialized()
+	{
+		AppState.OnChange += StateHasChanged;
+	}
+
+	public void Dispose()
+	{
+		AppState.OnChange -= StateHasChanged;
+	}
+
+
+	List<SideBarMenuItem> sideBarMenuItemList = new List<SideBarMenuItem>
+	{
+		 new SideBarMenuItem{ Name = "Dashboards", Id = "dashboardsExamples", Css = DashboardActiveClass, Icon = "ni ni-shop text-primary" , MainMenuItemList =dashboardMenuItems},
+		 new SideBarMenuItem{ Name = "PAGES" , Type = "Break"},
+		 new SideBarMenuItem{ Name = "Pages" , Id = "pagesExamples", Css = PagesActiveClass, Icon = "ni ni-ungroup text-warning",
+		  MainMenuItemList = new List<MenuItem>
+		 {
+			new MenuItem{ Title = "Profile" , MenuItemList = profileMenuItems, Id = "profileExample"},
+			new MenuItem{ Title = "Users" , MenuItemList = usersMenuItems, Id = "usersExample"  },
+			new MenuItem{ Title = "Account" , MenuItemList = accountMenuItems, Id = "accountExample" },
+			new MenuItem{ Title = "Projects" , MenuItemList =  projectMenuItems, Id = "projectsExample" },
+			new MenuItem{ Title = "Pricing Page" , Link = "/pricingpage"  },
+			new MenuItem{ Title = "RTL"  ,Link = "/rtl"},
+			new MenuItem{ Title = "Widgets"  ,Link = "/widgets"},
+			new MenuItem{ Title = "Charts"  ,Link = "/charts"},
+			new MenuItem{ Title = "Sweet Alerts"  ,Link = "/notifications"},
+			new MenuItem{ Title = "Notifications"  ,Link = "/noticifation"},
+			new MenuItem{ Title = "Chat" ,Link = "/chat" },
+			new MenuItem{ Title = "Syncfusion"  ,Link = "/syncfusion"},
+
+		 }},
+		 new SideBarMenuItem{ Name = "Applications" , Id = "applicationsExamples", Css = ApplicationActiveClass, Icon = "ni ni-ui-04 text-info", MainMenuItemList =applicationsMenuItems},
+		 new SideBarMenuItem{ Name = "Ecommerce" , Id = "ecommerceExamples", Css = EcommerceActiveClass, Icon = "ni ni-archive-2 text-success",
+		 MainMenuItemList = new List<MenuItem>
+		 {
+			new MenuItem{ Title = "Overview" , Link = "/overview",  MiniTitle = "O"  },
+			new MenuItem{ Title = "Products" , MenuItemList = productsMenuItems, Id = "productsExample"  },
+			new MenuItem{ Title = "Orders" ,   MenuItemList = ordersMenuItems, Id = "ordersExample" },
+			new MenuItem{ Title = "Referral" ,  Link = "/referral",  MiniTitle = "R"},
+
+		 }},
+		 new SideBarMenuItem{ Name = "Authentication" , Id = "authExamples", Css = AuthenticationActiveClass, Icon = "ni ni-single-copy-04 text-danger",
+		 MainMenuItemList = new List<MenuItem>
+		 {
+			new MenuItem{ Title = "Sing In" , MenuItemList = singinMenuItems, Id = "signinExample"},
+			new MenuItem{ Title = "Sing Up" , MenuItemList = singupMenuItems, Id = "signupExample"  },
+			new MenuItem{ Title = "Reset Password" , MenuItemList = resetMenuItems, Id = "resetExample" },
+			new MenuItem{ Title = "Lock" , MenuItemList = lockMenuItems, Id = "lockExample" },
+			new MenuItem{ Title = "2-Step Verification" , MenuItemList = verificationMenuItems , Id = "stepExample"},
+			new MenuItem{ Title = "Error" , MenuItemList = errorMenuItems , Id = "errorExample"},
+
+		 }}
+	};
+
+
+	List<MainMenuItem> mainMenuItemList = new List<MainMenuItem>
+	{
+	 new MainMenuItem{ Name = "Dashboards", MenuItemList = dashboardMenuItems },
+	 new MainMenuItem{ Name = "Pages" , MenuItemList = pagesMainMenuItems },
+	 new MainMenuItem{ Name = "Applications" ,MenuItemList = applicationsMenuItems},
+	 new MainMenuItem{ Name = "Ecommerce"  ,MenuItemList = ecommerceMainMenuItems},
+	 new MainMenuItem{ Name = "Authentication" ,MenuItemList = authenticationMainItems}
+	};
+
+	static List<MenuItem> dashboardMenuItems = new List<MenuItem>
+	{
+		//new MenuItem{ Link = "/landing",  MiniTitle = "L" , NormalTitle =  "Landing"  },
+		new MenuItem{ Link = "default",  MiniTitle = "D" , Title =  "Default"  },
+		new MenuItem{ Link = "automotive",  MiniTitle = "A" , Title =  "Automotive"  },
+		new MenuItem{ Link = "smarthome",  MiniTitle = "S" , Title =  "Smart Home"  },
+		//new MenuItem{ Link = "/virtualreality",  MiniTitle = "V" , NormalTitle =  "Virtual Reality"  },
+		new MenuItem{ Link = "crm",  MiniTitle = "C" , Title =  "CRM"  }
+	};
+
+	static List<MenuItem> applicationsMenuItems = new List<MenuItem>
+	{
+		new MenuItem{ Link = "kanban",  MiniTitle = "L" , Title =  "Kanban"  },
+		new MenuItem{ Link = "wizard",  MiniTitle = "W" , Title =  "Wizard"  },
+		new MenuItem{ Link = "datatables",  MiniTitle = "D" , Title =  "DataTables"  },
+		new MenuItem{ Link = "calendar",  MiniTitle = "C" , Title =  "Calendar"  },
+		new MenuItem{ Link = "analytics",  MiniTitle = "A" , Title =  "Analytics"  }
+	};
+
+	//Pages
+
+	static List<MenuItem> profileMenuItems = new List<MenuItem>
+	{
+		new MenuItem{ Link = "profileoverview",  MiniTitle = "P" , Title =  "Profile Overview"  },
+		new MenuItem{ Link = "teams",  MiniTitle = "T" , Title =  "Teams"  },
+		new MenuItem{ Link = "allproject",  MiniTitle = "A" , Title =  "All Projects"  }
+	};
+	public static List<MenuItem> usersMenuItems = new List<MenuItem>
+	{
+		new MenuItem{ Link = "reports",  MiniTitle = "R" , Title =  "Reports"  },
+		new MenuItem{ Link = "newuser",  MiniTitle = "N" , Title =  "New User"  },
+	};
+	static List<MenuItem> accountMenuItems = new List<MenuItem>
+	{
+		new MenuItem{ Link = "settings",  MiniTitle = "S" , Title =  "Settings"  },
+		new MenuItem{ Link = "billing",  MiniTitle = "B" , Title =  "Billing"  },
+		new MenuItem{ Link = "invoice",  MiniTitle = "I" , Title =  "Invoice"  },
+		new MenuItem{ Link = "security",  MiniTitle = "S" , Title =  "Security"  },
+	};
+	static List<MenuItem> projectMenuItems = new List<MenuItem>
+	{
+		new MenuItem{ Link = "general",  MiniTitle = "G" , Title =  "General"  },
+		new MenuItem{ Link = "timeline",  MiniTitle = "T" , Title =  "Timeline"  },
+		new MenuItem{ Link = "newproject",  MiniTitle = "N" , Title =  "New Project"  },
+
+	};
+	static List<MenuItem> pagesMenuItems = new List<MenuItem>
+	{
+		new MenuItem{ Link = "pricingpage",  MiniTitle = "L" , Title =  "Pricing Page"  },
+		new MenuItem{ Link = "rtl",  MiniTitle = "R" , Title =  "RTL"  },
+		new MenuItem{ Link = "widgets",  MiniTitle = "W" , Title =  "Widgets"  },
+		new MenuItem{ Link = "charts",  MiniTitle = "C" , Title =  "Charts"  },
+		new MenuItem{ Link = "sweetalerts",  MiniTitle = "S" , Title =  "Sweet Alerts"  },
+		new MenuItem{ Link = "notifications",  MiniTitle = "N" , Title =  "Notifications"  },
+		new MenuItem{ Link = "chat",  MiniTitle = "C" , Title =  "Chat"  },
+		new MenuItem{ Link = "syncfusion",  MiniTitle = "S" , Title =  "Syncfusion"  }
+	};
+
+	//Ecommerce
+
+	static List<MenuItem> productsMenuItems = new List<MenuItem>
+	{
+		new MenuItem{ Link = "newproduct",  MiniTitle = "N" , Title =  "New Product"  },
+		new MenuItem{ Link = "editproduct",  MiniTitle = "E" , Title =  "Edit Product"  },
+		new MenuItem{ Link = "productpage",  MiniTitle = "P" , Title =  "Product Page"  },
+		new MenuItem{ Link = "productslist",  MiniTitle = "P" , Title =  "Products List"  },
+	};
+	static List<MenuItem> ordersMenuItems = new List<MenuItem>
+	{
+		new MenuItem{ Link = "orderlist",  MiniTitle = "o" , Title =  "Order List"  },
+		new MenuItem{ Link = "orderdetail",  MiniTitle = "o" , Title =  "Order Details"  }
+	};
+
+	//Authentication
+
+	static List<MenuItem> singinMenuItems = new List<MenuItem>
+	{
+		new MenuItem{ Link = "signinbasic",  MiniTitle = "B" , Title =  "Basic"  },
+		new MenuItem{ Link = "signincover",  MiniTitle = "C" , Title =  "Cover"  },
+		new MenuItem{ Link = "signinillustration",  MiniTitle = "I" , Title =  "Illustration"  },
+	};
+	static List<MenuItem> singupMenuItems = new List<MenuItem>
+	{
+		new MenuItem{ Link = "signupbasic",  MiniTitle = "B" , Title =  "Basic"  },
+		new MenuItem{ Link = "signupcover",  MiniTitle = "C" , Title =  "Cover"  },
+		new MenuItem{ Link = "signupillustration",  MiniTitle = "I" , Title =  "Illustration"  },
+	};
+	static List<MenuItem> resetMenuItems = new List<MenuItem>
+	{
+		new MenuItem{ Link = "resetbasic",  MiniTitle = "B" , Title =  "Basic"  },
+		new MenuItem{ Link = "resetcover",  MiniTitle = "C" , Title =  "Cover"  },
+		new MenuItem{ Link = "resetillustration",  MiniTitle = "I" , Title =  "Illustration"  },
+	};
+	static List<MenuItem> lockMenuItems = new List<MenuItem>
+	{
+		new MenuItem{ Link = "lockbasic",  MiniTitle = "B" , Title =  "Basic"  },
+		new MenuItem{ Link = "lockcover",  MiniTitle = "C" , Title =  "Cover"  },
+		new MenuItem{ Link = "lockillustration",  MiniTitle = "I" , Title =  "Illustration"  },
+	};
+	static List<MenuItem> verificationMenuItems = new List<MenuItem>
+	{
+		new MenuItem{ Link = "verificationbasic",  MiniTitle = "B" , Title =  "Basic"  },
+		new MenuItem{ Link = "verificationcover",  MiniTitle = "C" , Title =  "Cover"  },
+		new MenuItem{ Link = "verificationillustration",  MiniTitle = "I" , Title =  "Illustration"  },
+	};
+	static List<MenuItem> errorMenuItems = new List<MenuItem>
+	{
+		new MenuItem{ Link = "404",  MiniTitle = "E" , Title =  "Error 404"  },
+		new MenuItem{ Link = "500",  MiniTitle = "E" , Title =  "Error 500"  }
+	};
+
+
+
+	static List<MenuItem> pagesMainMenuItems = new List<MenuItem>
+	{
+		new MenuItem{ Link = "/profileoverview",  MiniTitle = "P" , Title =  "Profile Overview"  },
+		new MenuItem{ Link = "/teams",  MiniTitle = "T" , Title =  "Teams"  },
+		new MenuItem{ Link = "/allproject",  MiniTitle = "A" , Title =  "All Projects"  },
+		new MenuItem{ Link = "/reports",  MiniTitle = "R" , Title =  "Reports"  },
+		new MenuItem{ Link = "/newuser",  MiniTitle = "N" , Title =  "New User"  },
+		new MenuItem{ Link = "/settings",  MiniTitle = "S" , Title =  "Settings"  },
+		new MenuItem{ Link = "/billing",  MiniTitle = "B" , Title =  "Billing"  },
+		new MenuItem{ Link = "/invoice",  MiniTitle = "I" , Title =  "Invoice"  },
+		new MenuItem{ Link = "/security",  MiniTitle = "S" , Title =  "Security"  },
+		new MenuItem{ Link = "/general",  MiniTitle = "G" , Title =  "General"  },
+		new MenuItem{ Link = "/timeline",  MiniTitle = "T" , Title =  "Timeline"  },
+		new MenuItem{ Link = "/newproject",  MiniTitle = "N" , Title =  "New Project"  },
+		new MenuItem{ Link = "/pricingpage",  MiniTitle = "L" , Title =  "Pricing Page"  },
+		new MenuItem{ Link = "/rtl",  MiniTitle = "R" , Title =  "RTL"  },
+		new MenuItem{ Link = "/widgets",  MiniTitle = "W" , Title =  "Widgets"  },
+		new MenuItem{ Link = "/charts",  MiniTitle = "C" , Title =  "Charts"  },
+		new MenuItem{ Link = "/sweetalerts",  MiniTitle = "S" , Title =  "Sweet Alerts"  },
+		new MenuItem{ Link = "/notifications",  MiniTitle = "N" , Title =  "Notifications"  },
+		new MenuItem{ Link = "/chat",  MiniTitle = "C" , Title =  "Chat"  },
+		new MenuItem{ Link = "/syncfusion",  MiniTitle = "S" , Title =  "Syncfusion"  }
+	};
+
+	static List<MenuItem> ecommerceMainMenuItems = new List<MenuItem>
+	{
+		new MenuItem{ Link = "/overview",  MiniTitle = "O" , Title =  "Overview"  },
+		new MenuItem{ Link = "/newproduct",  MiniTitle = "N" , Title =  "New Product"  },
+		new MenuItem{ Link = "/editproduct",  MiniTitle = "E" , Title =  "Edit Product"  },
+		new MenuItem{ Link = "/productpage",  MiniTitle = "P" , Title =  "Product Page"  },
+		new MenuItem{ Link = "/productslist",  MiniTitle = "P" , Title =  "Products List"  },
+		new MenuItem{ Link = "/orderlist",  MiniTitle = "o" , Title =  "Order List"  },
+		new MenuItem{ Link = "/orderdetail",  MiniTitle = "o" , Title =  "Order Details"  },
+		new MenuItem{ Link = "/referral",  MiniTitle = "R" , Title =  "Referral"  },
+	};
+
+	static List<MenuItem> authenticationMainItems = new List<MenuItem>
+	{
+		new MenuItem{ Link = "/singinbasic",  MiniTitle = "B" , Title =  "Basic"  },
+		new MenuItem{ Link = "/singincover",  MiniTitle = "C" , Title =  "Cover"  },
+		new MenuItem{ Link = "/singinillustration",  MiniTitle = "I" , Title =  "Illustration"  },
+		new MenuItem{ Link = "/singupbasic",  MiniTitle = "B" , Title =  "Basic"  },
+		new MenuItem{ Link = "/singupcover",  MiniTitle = "C" , Title =  "Cover"  },
+		new MenuItem{ Link = "/singupillustration",  MiniTitle = "I" , Title =  "Illustration"  },
+		new MenuItem{ Link = "/resetbasic",  MiniTitle = "B" , Title =  "Basic"  },
+		new MenuItem{ Link = "/resetcover",  MiniTitle = "C" , Title =  "Cover"  },
+		new MenuItem{ Link = "/resetillustration",  MiniTitle = "I" , Title =  "Illustration"  },
+		new MenuItem{ Link = "/lockbasic",  MiniTitle = "B" , Title =  "Basic"  },
+		new MenuItem{ Link = "/lockcover",  MiniTitle = "C" , Title =  "Cover"  },
+		new MenuItem{ Link = "/lockillustration",  MiniTitle = "I" , Title =  "Illustration"  },
+		new MenuItem{ Link = "/verificationbasic",  MiniTitle = "B" , Title =  "Basic"  },
+		new MenuItem{ Link = "/verificationcover",  MiniTitle = "C" , Title =  "Cover"  },
+		new MenuItem{ Link = "/verificationillustration",  MiniTitle = "I" , Title =  "Illustration"  },
+		new MenuItem{ Link = "/404",  MiniTitle = "E" , Title =  "Error 404"  },
+		new MenuItem{ Link = "/500",  MiniTitle = "E" , Title =  "Error 500"  }
+	};
+
+
+
+
+
+
+}
+
+
+@*<aside class="sidenav @(AppState.SideBarType != "bg-default" ? "bg-white" : "bg-default")  navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main" data-color="@AppState.SideBarColor">
 	<div class="sidenav-header">
 		<i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
 		<a class="navbar-brand m-0" href="/default" target="_blank">
@@ -363,216 +723,4 @@
 	</div>
 </aside>
 
-@code {
-
-	string sideBarTitle = "DashMate - Blazor";
-
-	string DashboardActiveClass = "";
-	string PagesActiveClass = "";
-	string ApplicationActiveClass = "";
-	string EcommerceActiveClass = "";
-	string AuthenticationActiveClass = "";
-
-
-
-	async Task NavLinkOnClick(string normalTitle)
-	{
-		MainMenuItem activeMenuItem = mainMenuItemList.Where(p => p.MenuItemList.Any(o => o.NormalTitle == normalTitle)).FirstOrDefault();
-		
-		DashboardActiveClass = (activeMenuItem?.Name == "Dashboards") ? "active" : "";
-		PagesActiveClass = (activeMenuItem?.Name == "Pages") ? "active" : "";
-		ApplicationActiveClass = (activeMenuItem?.Name == "Applications") ? "active" : "";
-		EcommerceActiveClass = (activeMenuItem?.Name == "Ecommerce") ? "active" : "";
-		AuthenticationActiveClass = (activeMenuItem?.Name == "Authentication") ? "active" : "";
-
-		AppState.SetNavBarSelectedMainMenu(activeMenuItem.Name);
-		AppState.SetNavBarSelectedMenu(normalTitle);
-
-	}
-
-	protected override void OnInitialized()
-	{
-		AppState.OnChange += StateHasChanged;
-	}
-
-	public void Dispose()
-	{
-		AppState.OnChange -= StateHasChanged;
-	}
-
-
-	List<MainMenuItem> mainMenuItemList = new List<MainMenuItem>
-	{
-	 new MainMenuItem{ Name = "Dashboards", MenuItemList = dashboardMenuItems },
-	 new MainMenuItem{ Name = "Pages" , MenuItemList = pagesMainMenuItems },
-	 new MainMenuItem{ Name = "Applications" ,MenuItemList = applicationsMenuItems},
-	 new MainMenuItem{ Name = "Ecommerce"  ,MenuItemList = ecommerceMainMenuItems},
-	 new MainMenuItem{ Name = "Authentication" ,MenuItemList = authenticationMainItems}
-	};
-
-	static List<MenuItem> dashboardMenuItems = new List<MenuItem>
-	{
-		//new MenuItem{ Link = "/landing",  MiniTitle = "L" , NormalTitle =  "Landing"  },
-		new MenuItem{ Link = "/default",  MiniTitle = "D" , NormalTitle =  "Default"  },
-		new MenuItem{ Link = "/automotive",  MiniTitle = "A" , NormalTitle =  "Automotive"  },
-		new MenuItem{ Link = "/smarthome",  MiniTitle = "S" , NormalTitle =  "Smart Home"  },
-		//new MenuItem{ Link = "/virtualreality",  MiniTitle = "V" , NormalTitle =  "Virtual Reality"  },
-		new MenuItem{ Link = "/crm",  MiniTitle = "C" , NormalTitle =  "CRM"  }
-	};
-	static List<MenuItem> applicationsMenuItems = new List<MenuItem>
-	{
-		new MenuItem{ Link = "/kanban",  MiniTitle = "L" , NormalTitle =  "Kanban"  },
-		new MenuItem{ Link = "/wizard",  MiniTitle = "W" , NormalTitle =  "Wizard"  },
-		new MenuItem{ Link = "/datatables",  MiniTitle = "D" , NormalTitle =  "DataTables"  },
-		new MenuItem{ Link = "/calendar",  MiniTitle = "C" , NormalTitle =  "Calendar"  },
-		new MenuItem{ Link = "/analytics",  MiniTitle = "A" , NormalTitle =  "Analytics"  }
-	};
-	static List<MenuItem> profileMenuItems = new List<MenuItem>
-	{
-		new MenuItem{ Link = "/profileoverview",  MiniTitle = "P" , NormalTitle =  "Profile Overview"  },
-		new MenuItem{ Link = "/teams",  MiniTitle = "T" , NormalTitle =  "Teams"  },
-		new MenuItem{ Link = "/allproject",  MiniTitle = "A" , NormalTitle =  "All Projects"  }
-	};
-	public static List<MenuItem> usersMenuItems = new List<MenuItem>
-	{
-		new MenuItem{ Link = "/reports",  MiniTitle = "R" , NormalTitle =  "Reports"  },
-		new MenuItem{ Link = "/newuser",  MiniTitle = "N" , NormalTitle =  "New User"  },
-	};
-	static List<MenuItem> accountMenuItems = new List<MenuItem>
-	{
-		new MenuItem{ Link = "/settings",  MiniTitle = "S" , NormalTitle =  "Settings"  },
-		new MenuItem{ Link = "/billing",  MiniTitle = "B" , NormalTitle =  "Billing"  },
-		new MenuItem{ Link = "/invoice",  MiniTitle = "I" , NormalTitle =  "Invoice"  },
-		new MenuItem{ Link = "/security",  MiniTitle = "S" , NormalTitle =  "Security"  },
-	};
-	static List<MenuItem> projectMenuItems = new List<MenuItem>
-	{
-		new MenuItem{ Link = "/general",  MiniTitle = "G" , NormalTitle =  "General"  },
-		new MenuItem{ Link = "/timeline",  MiniTitle = "T" , NormalTitle =  "Timeline"  },
-		new MenuItem{ Link = "/newproject",  MiniTitle = "N" , NormalTitle =  "New Project"  },
-
-	};
-	static List<MenuItem> pagesMenuItems = new List<MenuItem>
-	{
-		new MenuItem{ Link = "/pricingpage",  MiniTitle = "L" , NormalTitle =  "Pricing Page"  },
-		new MenuItem{ Link = "/rtl",  MiniTitle = "R" , NormalTitle =  "RTL"  },
-		new MenuItem{ Link = "/widgets",  MiniTitle = "W" , NormalTitle =  "Widgets"  },
-		new MenuItem{ Link = "/charts",  MiniTitle = "C" , NormalTitle =  "Charts"  },
-		new MenuItem{ Link = "/sweetalerts",  MiniTitle = "S" , NormalTitle =  "Sweet Alerts"  },
-		new MenuItem{ Link = "/notifications",  MiniTitle = "N" , NormalTitle =  "Notifications"  },
-		new MenuItem{ Link = "/chat",  MiniTitle = "C" , NormalTitle =  "Chat"  },
-		new MenuItem{ Link = "/syncfusion",  MiniTitle = "S" , NormalTitle =  "Syncfusion"  }
-	};
-	static List<MenuItem> productsMenuItems = new List<MenuItem>
-	{
-		new MenuItem{ Link = "/newproduct",  MiniTitle = "N" , NormalTitle =  "New Product"  },
-		new MenuItem{ Link = "/editproduct",  MiniTitle = "E" , NormalTitle =  "Edit Product"  },
-		new MenuItem{ Link = "/productpage",  MiniTitle = "P" , NormalTitle =  "Product Page"  },
-		new MenuItem{ Link = "/productslist",  MiniTitle = "P" , NormalTitle =  "Products List"  },
-	};
-	static List<MenuItem> ordersMenuItems = new List<MenuItem>
-	{
-		new MenuItem{ Link = "/orderlist",  MiniTitle = "o" , NormalTitle =  "Order List"  },
-		new MenuItem{ Link = "/orderdetail",  MiniTitle = "o" , NormalTitle =  "Order Details"  }
-	};
-	static List<MenuItem> singinMenuItems = new List<MenuItem>
-	{
-		new MenuItem{ Link = "/signinbasic",  MiniTitle = "B" , NormalTitle =  "Basic"  },
-		new MenuItem{ Link = "/signincover",  MiniTitle = "C" , NormalTitle =  "Cover"  },
-		new MenuItem{ Link = "/signinillustration",  MiniTitle = "I" , NormalTitle =  "Illustration"  },
-	};
-	static List<MenuItem> singupMenuItems = new List<MenuItem>
-	{
-		new MenuItem{ Link = "/signupbasic",  MiniTitle = "B" , NormalTitle =  "Basic"  },
-		new MenuItem{ Link = "/signupcover",  MiniTitle = "C" , NormalTitle =  "Cover"  },
-		new MenuItem{ Link = "/signupillustration",  MiniTitle = "I" , NormalTitle =  "Illustration"  },
-	};
-	static List<MenuItem> resetMenuItems = new List<MenuItem>
-	{
-		new MenuItem{ Link = "/resetbasic",  MiniTitle = "B" , NormalTitle =  "Basic"  },
-		new MenuItem{ Link = "/resetcover",  MiniTitle = "C" , NormalTitle =  "Cover"  },
-		new MenuItem{ Link = "/resetillustration",  MiniTitle = "I" , NormalTitle =  "Illustration"  },
-	};
-	static List<MenuItem> lockMenuItems = new List<MenuItem>
-	{
-		new MenuItem{ Link = "/lockbasic",  MiniTitle = "B" , NormalTitle =  "Basic"  },
-		new MenuItem{ Link = "/lockcover",  MiniTitle = "C" , NormalTitle =  "Cover"  },
-		new MenuItem{ Link = "/lockillustration",  MiniTitle = "I" , NormalTitle =  "Illustration"  },
-	};
-	static List<MenuItem> verificationMenuItems = new List<MenuItem>
-	{
-		new MenuItem{ Link = "/verificationbasic",  MiniTitle = "B" , NormalTitle =  "Basic"  },
-		new MenuItem{ Link = "/verificationcover",  MiniTitle = "C" , NormalTitle =  "Cover"  },
-		new MenuItem{ Link = "/verificationillustration",  MiniTitle = "I" , NormalTitle =  "Illustration"  },
-	};
-	static List<MenuItem> errorMenuItems = new List<MenuItem>
-	{
-		new MenuItem{ Link = "/404",  MiniTitle = "E" , NormalTitle =  "Error 404"  },
-		new MenuItem{ Link = "/500",  MiniTitle = "E" , NormalTitle =  "Error 500"  }
-	};
-
-
-
-	static List<MenuItem> pagesMainMenuItems = new List<MenuItem>
-	{
-		new MenuItem{ Link = "/profileoverview",  MiniTitle = "P" , NormalTitle =  "Profile Overview"  },
-		new MenuItem{ Link = "/teams",  MiniTitle = "T" , NormalTitle =  "Teams"  },
-		new MenuItem{ Link = "/allproject",  MiniTitle = "A" , NormalTitle =  "All Projects"  },
-		new MenuItem{ Link = "/reports",  MiniTitle = "R" , NormalTitle =  "Reports"  },
-		new MenuItem{ Link = "/newuser",  MiniTitle = "N" , NormalTitle =  "New User"  },
-		new MenuItem{ Link = "/settings",  MiniTitle = "S" , NormalTitle =  "Settings"  },
-		new MenuItem{ Link = "/billing",  MiniTitle = "B" , NormalTitle =  "Billing"  },
-		new MenuItem{ Link = "/invoice",  MiniTitle = "I" , NormalTitle =  "Invoice"  },
-		new MenuItem{ Link = "/security",  MiniTitle = "S" , NormalTitle =  "Security"  },
-		new MenuItem{ Link = "/general",  MiniTitle = "G" , NormalTitle =  "General"  },
-		new MenuItem{ Link = "/timeline",  MiniTitle = "T" , NormalTitle =  "Timeline"  },
-		new MenuItem{ Link = "/newproject",  MiniTitle = "N" , NormalTitle =  "New Project"  },
-		new MenuItem{ Link = "/pricingpage",  MiniTitle = "L" , NormalTitle =  "Pricing Page"  },
-		new MenuItem{ Link = "/rtl",  MiniTitle = "R" , NormalTitle =  "RTL"  },
-		new MenuItem{ Link = "/widgets",  MiniTitle = "W" , NormalTitle =  "Widgets"  },
-		new MenuItem{ Link = "/charts",  MiniTitle = "C" , NormalTitle =  "Charts"  },
-		new MenuItem{ Link = "/sweetalerts",  MiniTitle = "S" , NormalTitle =  "Sweet Alerts"  },
-		new MenuItem{ Link = "/notifications",  MiniTitle = "N" , NormalTitle =  "Notifications"  },
-		new MenuItem{ Link = "/chat",  MiniTitle = "C" , NormalTitle =  "Chat"  },
-		new MenuItem{ Link = "/syncfusion",  MiniTitle = "S" , NormalTitle =  "Syncfusion"  }
-	};
-
-	static List<MenuItem> ecommerceMainMenuItems = new List<MenuItem>
-	{
-		new MenuItem{ Link = "/overview",  MiniTitle = "O" , NormalTitle =  "Overview"  },
-		new MenuItem{ Link = "/newproduct",  MiniTitle = "N" , NormalTitle =  "New Product"  },
-		new MenuItem{ Link = "/editproduct",  MiniTitle = "E" , NormalTitle =  "Edit Product"  },
-		new MenuItem{ Link = "/productpage",  MiniTitle = "P" , NormalTitle =  "Product Page"  },
-		new MenuItem{ Link = "/productslist",  MiniTitle = "P" , NormalTitle =  "Products List"  },
-		new MenuItem{ Link = "/orderlist",  MiniTitle = "o" , NormalTitle =  "Order List"  },
-		new MenuItem{ Link = "/orderdetail",  MiniTitle = "o" , NormalTitle =  "Order Details"  },
-		new MenuItem{ Link = "/referral",  MiniTitle = "R" , NormalTitle =  "Referral"  },
-	};
-
-	static List<MenuItem> authenticationMainItems = new List<MenuItem>
-	{
-		new MenuItem{ Link = "/singinbasic",  MiniTitle = "B" , NormalTitle =  "Basic"  },
-		new MenuItem{ Link = "/singincover",  MiniTitle = "C" , NormalTitle =  "Cover"  },
-		new MenuItem{ Link = "/singinillustration",  MiniTitle = "I" , NormalTitle =  "Illustration"  },
-		new MenuItem{ Link = "/singupbasic",  MiniTitle = "B" , NormalTitle =  "Basic"  },
-		new MenuItem{ Link = "/singupcover",  MiniTitle = "C" , NormalTitle =  "Cover"  },
-		new MenuItem{ Link = "/singupillustration",  MiniTitle = "I" , NormalTitle =  "Illustration"  },
-		new MenuItem{ Link = "/resetbasic",  MiniTitle = "B" , NormalTitle =  "Basic"  },
-		new MenuItem{ Link = "/resetcover",  MiniTitle = "C" , NormalTitle =  "Cover"  },
-		new MenuItem{ Link = "/resetillustration",  MiniTitle = "I" , NormalTitle =  "Illustration"  },
-		new MenuItem{ Link = "/lockbasic",  MiniTitle = "B" , NormalTitle =  "Basic"  },
-		new MenuItem{ Link = "/lockcover",  MiniTitle = "C" , NormalTitle =  "Cover"  },
-		new MenuItem{ Link = "/lockillustration",  MiniTitle = "I" , NormalTitle =  "Illustration"  },
-		new MenuItem{ Link = "/verificationbasic",  MiniTitle = "B" , NormalTitle =  "Basic"  },
-		new MenuItem{ Link = "/verificationcover",  MiniTitle = "C" , NormalTitle =  "Cover"  },
-		new MenuItem{ Link = "/verificationillustration",  MiniTitle = "I" , NormalTitle =  "Illustration"  },
-		new MenuItem{ Link = "/404",  MiniTitle = "E" , NormalTitle =  "Error 404"  },
-		new MenuItem{ Link = "/500",  MiniTitle = "E" , NormalTitle =  "Error 500"  }
-	};
-
-
-
-
-
-
-}
+*@
